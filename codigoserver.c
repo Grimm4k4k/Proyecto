@@ -7,7 +7,6 @@
 #include <stdio.h>
 #include <mysql/mysql.h>
 #include <pthread.h>
-
 pthread_mutex_t mutex= PTHREAD_MUTEX_INITIALIZER;
 
 typedef struct{
@@ -20,8 +19,11 @@ typedef struct{
 	int num;
 }ListaConectados;
 
+char conectados[100];
+ListaConectados *listaCon;
 
 int addCon (ListaConectados *lista, char nombre[100],int socket){
+	lista->num=0;
 	if(lista->num==100){
 		return -1;
 	}
@@ -81,11 +83,6 @@ void *AtenderCliente (void *socket){
 	char copiaPeticion[512];
 	char consulta[256];
 	
-	char conectados[100];
-	ListaConectados *listaCon;
-	listaCon = (ListaConectados *)malloc(sizeof(ListaConectados));
-	listaCon->num=0;
-	
 	int err,num; 
 	MYSQL_RES *resultado; 
 	MYSQL_ROW row;
@@ -111,7 +108,7 @@ void *AtenderCliente (void *socket){
 		// Ahora recibimos la petici?n
 		ret=read(sock_conn,peticion, sizeof(peticion));
 		printf ("Recibido\n");
-		
+		if(ret!=-1){
 		// Tenemos que a?adirle la marca de fin de string 
 		// para que no escriba lo que hay despues en el buffer
 		peticion[ret]='\0';
@@ -206,8 +203,10 @@ void *AtenderCliente (void *socket){
 					write (sock_conn,respuesta, strlen(respuesta)+1);
 					
 					//actualizamos lista
+					pthread_mutex_lock(&mutex);
 					int res = addCon(listaCon, IdUsuario, sock_conn);
 					cambios=1;
+					pthread_mutex_unlock(&mutex);
 				}			
 			}
 		}
@@ -241,7 +240,7 @@ void *AtenderCliente (void *socket){
 			}
 			else{
 				row = mysql_fetch_row(resultado);
-				respuesta[0]='\0';
+				sprintf(respuesta,"consulta3/");
 				while(row != NULL){
 					strcat(respuesta,row[0]);
 					sprintf(respuesta,"%s/",respuesta);
@@ -269,7 +268,7 @@ void *AtenderCliente (void *socket){
 				exit(1);
 			}
 			else{
-				respuesta[0]='\0';
+				sprintf(respuesta,"consulta4/");
 				MYSQL_RES *resultado2;
 				row = mysql_fetch_row(resultado);
 				
@@ -316,11 +315,17 @@ void *AtenderCliente (void *socket){
 		if (cambios==1)
 		{
 			for(int i=0; i< listaCon->num; i++){
+			pthread_mutex_lock(&mutex);	
 			dameConectados(listaCon,conectados);
 			conectados[strlen(conectados)]='\0';
 			write(listaCon->conectados[i].socket,conectados,strlen(conectados)+1);
+			pthread_mutex_unlock(&mutex);
 			}
 			cambios=0;
+		}
+	}
+		else{
+			terminar=1;
 		}
 	}
 	mysql_close(conn);
@@ -334,6 +339,13 @@ int main(int argc, char *argv[])
 	struct sockaddr_in serv_adr;
 	char peticion[512];
 	char respuesta[100];
+	listaCon = (struct ListaConectados *)malloc(sizeof(ListaConectados));
+	if (listaCon == NULL) {
+		perror("Error al asignar memoria");
+		exit(1);
+	}
+	listaCon->num = 0;
+	
 	// INICIALITZACIONS
 	// Obrim el socket
 	if ((sock_listen = socket(AF_INET, SOCK_STREAM, 0)) < 0)
@@ -348,7 +360,7 @@ int main(int argc, char *argv[])
 	//htonl formatea el numero que recibe al formato necesario
 	serv_adr.sin_addr.s_addr = htonl(INADDR_ANY);
 	// establecemos el puerto de escucha
-	serv_adr.sin_port = htons(9001);
+	serv_adr.sin_port = htons(9005);
 	if (bind(sock_listen, (struct sockaddr *) &serv_adr, sizeof(serv_adr)) < 0)
 		printf ("Error al bind");
 	
