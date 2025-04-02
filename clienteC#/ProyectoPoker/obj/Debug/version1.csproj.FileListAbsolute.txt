@@ -1,0 +1,100 @@
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\cliente\version1\bin\Debug\version1.exe.config
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\cliente\version1\bin\Debug\version1.exe
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\cliente\version1\bin\Debug\version1.pdb
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\cliente\version1\obj\Debug\version1.csproj.AssemblyReference.cache
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\cliente\version1\obj\Debug\version1.Cliente.resources
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\cliente\version1\obj\Debug\version1.FormRegister.resources
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\cliente\version1\obj\Debug\version1.Properties.Resources.resources
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\cliente\version1\obj\Debug\version1.csproj.GenerateResource.cache
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\cliente\version1\obj\Debug\version1.csproj.CoreCompileInputs.cache
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\cliente\version1\obj\Debug\version1.exe
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\cliente\version1\obj\Debug\version1.pdb
+C:\Users\34634\Desktop\Q4\SO\projecte\Proyecto SO\ProyectoSO\clienteC#\version1\obj\Debug\version1.csproj.AssemblyReference.cache
+C:\Users\34634\Desktop\Q4\SO\projecte\Proyecto SO\ProyectoSO\clienteC#\version1\obj\Debug\version1.Cliente.resources
+C:\Users\34634\Desktop\Q4\SO\projecte\Proyecto SO\ProyectoSO\clienteC#\version1\obj\Debug\version1.FormLogin.resources
+C:\Users\34634\Desktop\Q4\SO\projecte\Proyecto SO\ProyectoSO\clienteC#\version1\obj\Debug\version1.FormRegister.resources
+C:\Users\34634\Desktop\Q4\SO\projecte\Proyecto SO\ProyectoSO\clienteC#\version1\obj\Debug\version1.Properties.Resources.resources
+C:\Users\34634\Desktop\Q4\SO\projecte\Proyecto SO\ProyectoSO\clienteC#\version1\obj\Debug\version1.csproj.GenerateResource.cache
+C:\Users\34634\Desktop\Q4\SO\projecte\Proyecto SO\ProyectoSO\clienteC#\version1\obj\Debug\version1.csproj.CoreCompileInputs.cache
+C:\Users\34634\Desktop\Q4\SO\projecte\Proyecto SO\ProyectoSO\clienteC#\version1\obj\Debug\version1.exe
+C:\Users\34634\Desktop\Q4\SO\projecte\Proyecto SO\ProyectoSO\clienteC#\version1\obj\Debug\version1.pdb
+C:\Users\34634\Desktop\Q4\SO\projecte\Proyecto SO\ProyectoSO\clienteC#\version1\bin\Debug\version1.exe.config
+C:\Users\34634\Desktop\Q4\SO\projecte\Proyecto SO\ProyectoSO\clienteC#\version1\bin\Debug\version1.exe
+C:\Users\34634\Desktop\Q4\SO\projecte\Proyecto SO\ProyectoSO\clienteC#\version1\bin\Debug\version1.pdb
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\ProyectoSO\clienteC#\version1\bin\Debug\version1.exe.config
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\ProyectoSO\clienteC#\version1\bin\Debug\version1.exe
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\ProyectoSO\clienteC#\version1\bin\Debug\version1.pdb
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\ProyectoSO\clienteC#\version1\obj\Debug\version1.csproj.AssemblyReference.cache
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\ProyectoSO\clienteC#\version1\obj\Debug\version1.Cliente.resources
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\ProyectoSO\clienteC#\version1\obj\Debug\version1.FormLogin.resources
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\ProyectoSO\clienteC#\version1\obj\Debug\version1.FormRegister.resources
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\ProyectoSO\clienteC#\version1\obj\Debug\version1.Properties.Resources.resources
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\ProyectoSO\clienteC#\version1\obj\Debug\version1.csproj.GenerateResource.cache
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\ProyectoSO\clienteC#\version1\obj\Debug\version1.csproj.CoreCompileInputs.cache
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\ProyectoSO\clienteC#\version1\obj\Debug\version1.exe
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\ProyectoSO\clienteC#\version1\obj\Debug\version1.pdb
+C:\Users\34634\Desktop\Q4\SO\projecte\ProyectoSO\clienteC#\version1\bin\Debug\version1.exe.config
+C:\Users\34634\Desktop\Q4\SO\projecte\ProyectoSO\clienteC#\version1\bin\Debug\version1.exe
+C:\Users\34634\Desktop\Q4\SO\projecte\ProyectoSO\clienteC#\version1\bin\Debug\version1.pdb
+C:\Users\34634\Desktop\Q4\SO\projecte\ProyectoSO\clienteC#\version1\obj\Debug\version1.csproj.AssemblyReference.cache
+C:\Users\34634\Desktop\Q4\SO\projecte\ProyectoSO\clienteC#\version1\obj\Debug\version1.Cliente.resources
+C:\Users\34634\Desktop\Q4\SO\projecte\ProyectoSO\clienteC#\version1\obj\Debug\version1.FormLogin.resources
+C:\Users\34634\Desktop\Q4\SO\projecte\ProyectoSO\clienteC#\version1\obj\Debug\version1.FormRegister.resources
+C:\Users\34634\Desktop\Q4\SO\projecte\ProyectoSO\clienteC#\version1\obj\Debug\version1.Properties.Resources.resources
+C:\Users\34634\Desktop\Q4\SO\projecte\ProyectoSO\clienteC#\version1\obj\Debug\version1.csproj.GenerateResource.cache
+C:\Users\34634\Desktop\Q4\SO\projecte\ProyectoSO\clienteC#\version1\obj\Debug\version1.csproj.CoreCompileInputs.cache
+C:\Users\34634\Desktop\Q4\SO\projecte\ProyectoSO\clienteC#\version1\obj\Debug\version1.exe
+C:\Users\34634\Desktop\Q4\SO\projecte\ProyectoSO\clienteC#\version1\obj\Debug\version1.pdb
+C:\Users\34634\Desktop\Q4\SO\projecte\ProyectoSO\clienteC#\version1\obj\Debug\version1.FormConsulta.resources
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\Version1\clienteC#\version1\bin\Debug\version1.exe.config
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\Version1\clienteC#\version1\bin\Debug\version1.exe
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\Version1\clienteC#\version1\bin\Debug\version1.pdb
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\Version1\clienteC#\version1\obj\Debug\version1.csproj.AssemblyReference.cache
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\Version1\clienteC#\version1\obj\Debug\version1.Cliente.resources
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\Version1\clienteC#\version1\obj\Debug\version1.FormConsulta.resources
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\Version1\clienteC#\version1\obj\Debug\version1.FormLogin.resources
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\Version1\clienteC#\version1\obj\Debug\version1.FormRegister.resources
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\Version1\clienteC#\version1\obj\Debug\version1.Properties.Resources.resources
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\Version1\clienteC#\version1\obj\Debug\version1.csproj.GenerateResource.cache
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\Version1\clienteC#\version1\obj\Debug\version1.csproj.CoreCompileInputs.cache
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\Version1\clienteC#\version1\obj\Debug\version1.exe
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\Version1\clienteC#\version1\obj\Debug\version1.pdb
+C:\Users\34634\Downloads\Vrara\clienteC#\version1\bin\Debug\version1.exe.config
+C:\Users\34634\Downloads\Vrara\clienteC#\version1\bin\Debug\version1.exe
+C:\Users\34634\Downloads\Vrara\clienteC#\version1\bin\Debug\version1.pdb
+C:\Users\34634\Downloads\Vrara\clienteC#\version1\obj\Debug\version1.csproj.AssemblyReference.cache
+C:\Users\34634\Downloads\Vrara\clienteC#\version1\obj\Debug\version1.Cliente.resources
+C:\Users\34634\Downloads\Vrara\clienteC#\version1\obj\Debug\version1.FormConsulta.resources
+C:\Users\34634\Downloads\Vrara\clienteC#\version1\obj\Debug\version1.FormLogin.resources
+C:\Users\34634\Downloads\Vrara\clienteC#\version1\obj\Debug\version1.FormRegister.resources
+C:\Users\34634\Downloads\Vrara\clienteC#\version1\obj\Debug\version1.Properties.Resources.resources
+C:\Users\34634\Downloads\Vrara\clienteC#\version1\obj\Debug\version1.csproj.GenerateResource.cache
+C:\Users\34634\Downloads\Vrara\clienteC#\version1\obj\Debug\version1.csproj.CoreCompileInputs.cache
+C:\Users\34634\Downloads\Vrara\clienteC#\version1\obj\Debug\version1.exe
+C:\Users\34634\Downloads\Vrara\clienteC#\version1\obj\Debug\version1.pdb
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\Projecte\Vrara\clienteC#\version1\bin\Debug\version1.exe.config
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\Projecte\Vrara\clienteC#\version1\bin\Debug\version1.exe
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\Projecte\Vrara\clienteC#\version1\bin\Debug\version1.pdb
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\Projecte\Vrara\clienteC#\version1\obj\Debug\version1.csproj.AssemblyReference.cache
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\Projecte\Vrara\clienteC#\version1\obj\Debug\version1.Cliente.resources
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\Projecte\Vrara\clienteC#\version1\obj\Debug\version1.FormConsulta.resources
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\Projecte\Vrara\clienteC#\version1\obj\Debug\version1.FormLogin.resources
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\Projecte\Vrara\clienteC#\version1\obj\Debug\version1.FormRegister.resources
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\Projecte\Vrara\clienteC#\version1\obj\Debug\version1.Properties.Resources.resources
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\Projecte\Vrara\clienteC#\version1\obj\Debug\version1.csproj.GenerateResource.cache
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\Projecte\Vrara\clienteC#\version1\obj\Debug\version1.csproj.CoreCompileInputs.cache
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\Projecte\Vrara\clienteC#\version1\obj\Debug\version1.exe
+C:\Users\gerar\OneDrive\Escriptori\UPC\Q4\SO\Projecte\Vrara\clienteC#\version1\obj\Debug\version1.pdb
+D:\UPC\SO\Vrara\Vrara\clienteC#\version1\bin\Debug\version1.exe.config
+D:\UPC\SO\Vrara\Vrara\clienteC#\version1\bin\Debug\version1.exe
+D:\UPC\SO\Vrara\Vrara\clienteC#\version1\bin\Debug\version1.pdb
+D:\UPC\SO\Vrara\Vrara\clienteC#\version1\obj\Debug\version1.csproj.AssemblyReference.cache
+D:\UPC\SO\Vrara\Vrara\clienteC#\version1\obj\Debug\version1.Cliente.resources
+D:\UPC\SO\Vrara\Vrara\clienteC#\version1\obj\Debug\version1.FormConsulta.resources
+D:\UPC\SO\Vrara\Vrara\clienteC#\version1\obj\Debug\version1.FormLogin.resources
+D:\UPC\SO\Vrara\Vrara\clienteC#\version1\obj\Debug\version1.FormRegister.resources
+D:\UPC\SO\Vrara\Vrara\clienteC#\version1\obj\Debug\version1.Properties.Resources.resources
+D:\UPC\SO\Vrara\Vrara\clienteC#\version1\obj\Debug\version1.csproj.GenerateResource.cache
+D:\UPC\SO\Vrara\Vrara\clienteC#\version1\obj\Debug\version1.csproj.CoreCompileInputs.cache
+D:\UPC\SO\Vrara\Vrara\clienteC#\version1\obj\Debug\version1.exe
+D:\UPC\SO\Vrara\Vrara\clienteC#\version1\obj\Debug\version1.pdb
