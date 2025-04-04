@@ -151,5 +151,10 @@ namespace version1
         {
 
         }
+
+        private void MAIN_FormClosed(object sender, FormClosedEventArgs e)
+        {
+
+        }
     }
 }

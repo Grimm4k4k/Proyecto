@@ -20,10 +20,9 @@ typedef struct{
 }ListaConectados;
 
 char conectados[100];
-ListaConectados *listaCon;
+ListaConectados listaCon;
 
 int addCon (ListaConectados *lista, char nombre[100],int socket){
-	lista->num=0;
 	if(lista->num==100){
 		return -1;
 	}
@@ -33,11 +32,11 @@ int addCon (ListaConectados *lista, char nombre[100],int socket){
 	return 0;
 }
 
-int dameSocket (ListaConectados *lista, char nombre[100]){ //No devuelve el numero del socket como tal sino su posicion
+int dameSocket (ListaConectados lista, char nombre[100]){ //No devuelve el numero del socket como tal sino su posicion
 	int i =0;
 	int encontrado =0;
-	while((i<lista->num)&&(encontrado==0)){
-		if(strcmp(lista->conectados[i].nombre,nombre)==0){
+	while((i<lista.num)&&(encontrado==0)){
+		if(strcmp(lista.conectados[i].nombre,nombre)==0){
 			encontrado=1;
 		}
 		if(encontrado==0){
@@ -50,22 +49,22 @@ int dameSocket (ListaConectados *lista, char nombre[100]){ //No devuelve el nume
 			return -1;
 }
 
-int eliminarCon(ListaConectados *lista, char nombre[100]){
+int eliminarCon(ListaConectados lista, char nombre[100]){
 	int posSocket= dameSocket(lista,nombre);
 	if(posSocket==-1){
 		return -1;
 	}
-	for(int i=posSocket;i<lista->num-1;i++){
-		lista->conectados[i] = lista->conectados[i+1];
+	for(int i=posSocket;i<lista.num-1;i++){
+		lista.conectados[i] = lista.conectados[i+1];
 	}
-	lista->num--;
+	lista.num--;
 	return 0;
 }
 
-void dameConectados(ListaConectados *lista,char conectados[300]){//Pone en el vetor del parametro todos los conectados (Formato:l/Numero total/nombre/nombre/nombre)
-	sprintf(conectados,"l/%d",lista->num);
-	for(int i=0;i<lista->num;i++){
-		sprintf(conectados, "%s/%s",conectados,lista->conectados[i].nombre);
+void dameConectados(ListaConectados lista,char conectados[300]){//Pone en el vetor del parametro todos los conectados (Formato:l/Numero total/nombre/nombre/nombre)
+	sprintf(conectados,"l/%d",lista.num);
+	for(int i=0;i<lista.num;i++){
+		sprintf(conectados, "%s/%s",conectados,lista.conectados[i].nombre);
 	}
 }
 
@@ -204,7 +203,7 @@ void *AtenderCliente (void *socket){
 					
 					//actualizamos lista
 					pthread_mutex_lock(&mutex);
-					int res = addCon(listaCon, IdUsuario, sock_conn);
+					int res = addCon(&listaCon, IdUsuario, sock_conn);
 					cambios=1;
 					pthread_mutex_unlock(&mutex);
 				}			
@@ -314,11 +313,11 @@ void *AtenderCliente (void *socket){
 		}
 		if (cambios==1)
 		{
-			for(int i=0; i< listaCon->num; i++){
+			for(int i=0; i< listaCon.num; i++){
 			pthread_mutex_lock(&mutex);	
 			dameConectados(listaCon,conectados);
 			conectados[strlen(conectados)]='\0';
-			write(listaCon->conectados[i].socket,conectados,strlen(conectados)+1);
+			write(listaCon.conectados[i].socket,conectados,strlen(conectados)+1);
 			pthread_mutex_unlock(&mutex);
 			}
 			cambios=0;
@@ -339,12 +338,6 @@ int main(int argc, char *argv[])
 	struct sockaddr_in serv_adr;
 	char peticion[512];
 	char respuesta[100];
-	listaCon = (struct ListaConectados *)malloc(sizeof(ListaConectados));
-	if (listaCon == NULL) {
-		perror("Error al asignar memoria");
-		exit(1);
-	}
-	listaCon->num = 0;
 	
 	// INICIALITZACIONS
 	// Obrim el socket
@@ -360,7 +353,7 @@ int main(int argc, char *argv[])
 	//htonl formatea el numero que recibe al formato necesario
 	serv_adr.sin_addr.s_addr = htonl(INADDR_ANY);
 	// establecemos el puerto de escucha
-	serv_adr.sin_port = htons(9005);
+	serv_adr.sin_port = htons(9001);
 	if (bind(sock_listen, (struct sockaddr *) &serv_adr, sizeof(serv_adr)) < 0)
 		printf ("Error al bind");
 	

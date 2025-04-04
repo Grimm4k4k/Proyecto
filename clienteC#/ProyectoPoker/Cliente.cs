@@ -68,7 +68,7 @@ namespace version1
                 }
                 else
                 {
-                    MessageBox.Show("Ya se ha iniciado sesion");
+                    FConsulta.ShowDialog();
                 }
             }
         }
@@ -127,7 +127,7 @@ namespace version1
                 //Creamos un IPEndPoint con el ip del servidor y puerto del servidor 
                 //al que deseamos conectarnos
                 IPAddress direc = IPAddress.Parse("192.168.56.102");
-                IPEndPoint ipep = new IPEndPoint(direc, 9005);
+                IPEndPoint ipep = new IPEndPoint(direc, 9001);
                 //Creamos el socket 
                 server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 try

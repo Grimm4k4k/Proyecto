@@ -59,6 +59,7 @@
             this.idBox.Name = "idBox";
             this.idBox.Size = new System.Drawing.Size(100, 20);
             this.idBox.TabIndex = 2;
+            this.idBox.Text = "J1";
             // 
             // contraBox
             // 
@@ -66,6 +67,7 @@
             this.contraBox.Name = "contraBox";
             this.contraBox.Size = new System.Drawing.Size(100, 20);
             this.contraBox.TabIndex = 3;
+            this.contraBox.Text = "gery05";
             // 
             // BAceptar
             // 
