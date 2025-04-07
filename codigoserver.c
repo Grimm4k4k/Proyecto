@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <mysql/mysql.h>
 #include <pthread.h>
+
 pthread_mutex_t mutex= PTHREAD_MUTEX_INITIALIZER;
 
 typedef struct{
@@ -32,11 +33,11 @@ int addCon (ListaConectados *lista, char nombre[100],int socket){
 	return 0;
 }
 
-int dameSocket (ListaConectados lista, char nombre[100]){ //No devuelve el numero del socket como tal sino su posicion
+int dameSocket (ListaConectados *lista, char nombre[100]){ //No devuelve el numero del socket como tal sino su posicion
 	int i =0;
 	int encontrado =0;
-	while((i<lista.num)&&(encontrado==0)){
-		if(strcmp(lista.conectados[i].nombre,nombre)==0){
+	while((i<lista->num)&&(encontrado==0)){
+		if(strcmp(lista->conectados[i].nombre,nombre)==0){
 			encontrado=1;
 		}
 		if(encontrado==0){
@@ -49,22 +50,22 @@ int dameSocket (ListaConectados lista, char nombre[100]){ //No devuelve el numer
 			return -1;
 }
 
-int eliminarCon(ListaConectados lista, char nombre[100]){
+int eliminarCon(ListaConectados *lista, char nombre[100]){
 	int posSocket= dameSocket(lista,nombre);
 	if(posSocket==-1){
 		return -1;
 	}
-	for(int i=posSocket;i<lista.num-1;i++){
-		lista.conectados[i] = lista.conectados[i+1];
+	for(int i=posSocket;i<lista->num-1;i++){
+		lista->conectados[i] = lista->conectados[i+1];
 	}
-	lista.num--;
+	lista->num--;
 	return 0;
 }
 
-void dameConectados(ListaConectados lista,char conectados[300]){//Pone en el vetor del parametro todos los conectados (Formato:l/Numero total/nombre/nombre/nombre)
-	sprintf(conectados,"l/%d",lista.num);
-	for(int i=0;i<lista.num;i++){
-		sprintf(conectados, "%s/%s",conectados,lista.conectados[i].nombre);
+void dameConectados(ListaConectados *lista,char conectados[300]){//Pone en el vetor del parametro todos los conectados (Formato:l/Numero total/nombre/nombre/nombre)
+	sprintf(conectados,"l/%d",lista->num);
+	for(int i=0;i<lista->num;i++){
+		sprintf(conectados, "%s/%s",conectados,lista->conectados[i].nombre);
 	}
 }
 
@@ -93,7 +94,7 @@ void *AtenderCliente (void *socket){
 		exit(1);
 	}
 	
-	conn = mysql_real_connect(conn, "localhost", "root", "mysql", "poker", 0, NULL, 0);
+	conn = mysql_real_connect(conn, "shiva2.upc.es", "root", "mysql", "M3_BBDDPoker", 0, NULL, 0);
 	if (conn == NULL) {
 		printf("Error al inicializar la conexión: %u %s\n", mysql_errno(conn), mysql_error(conn));
 		exit(1);
@@ -132,7 +133,7 @@ void *AtenderCliente (void *socket){
 		{
 		case 0://terminar peticion
 		{
-			int res = eliminarCon(listaCon,IdUsuario);
+			int res = eliminarCon(&listaCon,IdUsuario);
 			terminar = 1; 
 			cambios=1;
 		}
@@ -300,6 +301,56 @@ void *AtenderCliente (void *socket){
 			
 		case 5:
 		{
+			MYSQL_ROW row2;
+			MYSQL_RES *resultado2;
+			p = strtok( NULL, "/");
+			int tiempo = atoi(p);
+			int contpartidas = 0;
+			sprintf(consulta, "SELECT participantes.idP FROM participantes WHERE participantes.idJ = '%s'", IdUsuario);
+			if (mysql_query(conn, consulta) != 0) {
+				printf("Error al consultar partidas: %u %s\n", mysql_errno(conn), mysql_error(conn));
+				mysql_close(conn);
+				exit(1);
+			}
+			resultado = mysql_store_result(conn);
+			if (resultado == NULL) {
+				printf("Error al obtener el resultado de la consulta.\n");
+				mysql_close(conn);
+				exit(1);
+			}
+			else{
+				row = mysql_fetch_row(resultado);
+			}
+			consulta[0] = '\0';//liberar cosulta
+			for(int i=0; i < mysql_num_fields(resultado); i++){
+				sprintf(consulta, "SELECT partidas.duracion FROM partidas, participantes WHERE partidas.id_partida = '%s'", row[i]);
+				if (mysql_query(conn, consulta) != 0) {
+					printf("Error al consultar partidas: %u %s\n", mysql_errno(conn), mysql_error(conn));
+					mysql_close(conn);
+					exit(1);
+				}
+				resultado2 = mysql_store_result(conn);
+				if (resultado2 == NULL) {
+					printf("Error al obtener el resultado de la consulta.\n");
+					mysql_close(conn);
+					exit(1);
+				}
+				else{
+					row2 = mysql_fetch_row(resultado2);
+					if(tiempo >= atoi(row2[0])){
+						contpartidas++;
+						tiempo = tiempo - atoi(row2[0]);
+					}
+				}
+			}
+			respuesta[0] = '\0';
+			char strcont[200];
+			sprintf(strcont, "%d",contpartidas);
+			sprintf(respuesta,"consulta5/");
+			strcat(respuesta,strcont);
+			respuesta[(strlen(respuesta))]= '\0';
+			// Enviamos respuesta
+			write (sock_conn,respuesta, strlen(respuesta));
 			
 		}
 		break;
@@ -315,7 +366,7 @@ void *AtenderCliente (void *socket){
 		{
 			for(int i=0; i< listaCon.num; i++){
 			pthread_mutex_lock(&mutex);	
-			dameConectados(listaCon,conectados);
+			dameConectados(&listaCon,conectados);
 			conectados[strlen(conectados)]='\0';
 			write(listaCon.conectados[i].socket,conectados,strlen(conectados)+1);
 			pthread_mutex_unlock(&mutex);
@@ -335,6 +386,7 @@ void *AtenderCliente (void *socket){
 int main(int argc, char *argv[])
 {
 	int sock_conn, sock_listen, ret;
+	int puerto=50010;
 	struct sockaddr_in serv_adr;
 	char peticion[512];
 	char respuesta[100];
@@ -353,7 +405,7 @@ int main(int argc, char *argv[])
 	//htonl formatea el numero que recibe al formato necesario
 	serv_adr.sin_addr.s_addr = htonl(INADDR_ANY);
 	// establecemos el puerto de escucha
-	serv_adr.sin_port = htons(9001);
+	serv_adr.sin_port = htons(puerto);
 	if (bind(sock_listen, (struct sockaddr *) &serv_adr, sizeof(serv_adr)) < 0)
 		printf ("Error al bind");
 	

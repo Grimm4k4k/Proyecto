@@ -26,6 +26,7 @@ namespace version1
         string id;
         string idP;
         string contra;
+        int tiempo;
         Thread atender;
 
         public void setServer(Socket server)
@@ -81,27 +82,51 @@ namespace version1
                         { 
                             //Tratamos la respuesta del servidor
                             string[] partes = mensaje.Split('/');
+                            string[] resp = new string[partes.Length -1];
                             int n = 0;
                             for (int i = 1; i < partes.Length; i++)
                             {
-                                partes[n] = partes[i];
+                                resp[n] = partes[i];
+                                n++;
                             }
-                            label1.Visible = false;
-                            idPbox.Visible = false;
-                            button1.Visible = false;
-                            MessageBox.Show("Han jugado las siguientes personas: " + string.Join(", ", partes));
+                            this.Invoke((MethodInvoker)delegate
+                            {
+                                label1.Visible = false;
+                                idPbox.Visible = false;
+                                button1.Visible = false;
+                                MessageBox.Show("Han jugado las siguientes personas: " + string.Join(", ", resp));
+                            });
+                            
                         }
                     break;
 
                     case "consulta4":
                         {
                             string[] partes = mensaje.Split('/');
+                            string[] resp = new string[partes.Length - 1];
                             int n = 0;
                             for(int i = 1; i < partes.Length; i++)
                             {
-                                partes[n] = partes[i];
+                                resp[n] = partes[i];
+                                n++;
                             }
-                            MessageBox.Show("Has jugado con las siguientes personas: " + string.Join(", ", partes));
+                            MessageBox.Show("Has jugado con las siguientes personas: " + string.Join(", ", resp));
+                        }
+                    break;
+
+                    case "consulta5":
+                        {
+                            string[] partes = mensaje.Split('/');
+                            if (partes[1] != null)
+                            {
+                                MessageBox.Show("Has jugado " + partes[1] + " partidas en ese tiempo");
+                            }
+                            this.Invoke((MethodInvoker)delegate
+                            {
+                                labeltiempo.Visible = false;
+                                TBox.Visible = false;
+                                buscartiempo.Visible = false;
+                            });
                         }
                     break;
                     default:
@@ -155,6 +180,35 @@ namespace version1
         private void MAIN_FormClosed(object sender, FormClosedEventArgs e)
         {
 
+        }
+
+        private void cuantasPartidasSeHanJugadoEnXTiempoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            labeltiempo.Visible = true;
+            TBox.Visible = true;
+            buscartiempo.Visible = true;
+
+        }
+
+        private void mENUDECONSULTASToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+       
+        }
+
+        private void buscartiempo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                tiempo = Convert.ToInt32(TBox.Text);
+                string mensaje = "5/" + id + "/" + contra + "/" + tiempo;
+                // Enviamos al servidor el registro tecleado
+                byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
+                server.Send(msg);
+            }
+            catch
+            {
+                MessageBox.Show("Introduce el tiempo en el formato correcto");
+            }
         }
     }
 }

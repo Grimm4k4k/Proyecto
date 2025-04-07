@@ -51,19 +51,26 @@ namespace version1
                     mensaje = Encoding.ASCII.GetString(msg2).Split('\0')[0];
 
                     //tratar la respuesta bien
-
-                    if (Convert.ToInt32(mensaje) == 1)
+                    try
                     {
-                        logged = true;
-                        FConsulta.setId(this.id);
-                        FConsulta.setServer(this.server);
-                        FConsulta.setContra(this.contra);
-                        FConsulta.ShowDialog();
+                        if (Convert.ToInt32(mensaje) == 1)
+                        {
+                            logged = true;
+                            FConsulta.setId(this.id);
+                            FConsulta.setServer(this.server);
+                            FConsulta.setContra(this.contra);
+                            FConsulta.ShowDialog();
+                        }
+                        else
+                        {
+                            MessageBox.Show("No se ha podido iniciar sesión");
+                        }
                     }
-                    else
+                    catch
                     {
                         MessageBox.Show("No se ha podido iniciar sesión");
                     }
+                    
 
                 }
                 else
@@ -126,8 +133,8 @@ namespace version1
             {
                 //Creamos un IPEndPoint con el ip del servidor y puerto del servidor 
                 //al que deseamos conectarnos
-                IPAddress direc = IPAddress.Parse("192.168.56.102");
-                IPEndPoint ipep = new IPEndPoint(direc, 9001);
+                IPAddress direc = IPAddress.Parse("10.4.119.5");
+                IPEndPoint ipep = new IPEndPoint(direc, 50010);
                 //Creamos el socket 
                 server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 try
