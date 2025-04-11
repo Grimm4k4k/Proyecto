@@ -19,13 +19,26 @@ namespace version1
             InitializeComponent();
         }
 
+        int puerto = 50010;
+
+
         Socket server;
         FormLogin FLogin = new FormLogin();
         FormRegister FRegister = new FormRegister();
-        MAIN FConsulta = new MAIN();
+        MAIN FMain = new MAIN();
         string nombre, id, dni, contra;
         int edad;
         bool logged = false,connected = false;
+        private void FMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+                Bcon.Text = "Conectar";
+                logged = false;
+                connected = false;
+                server.Shutdown(SocketShutdown.Both);
+                server.Close();
+                FMain=new MAIN();
+            this.BackColor = Color.Gray;
+        }
 
         private void BLogin_Click(object sender, EventArgs e)
         {
@@ -56,10 +69,11 @@ namespace version1
                         if (Convert.ToInt32(mensaje) == 1)
                         {
                             logged = true;
-                            FConsulta.setId(this.id);
-                            FConsulta.setServer(this.server);
-                            FConsulta.setContra(this.contra);
-                            FConsulta.ShowDialog();
+                            FMain.setId(this.id);
+                            FMain.setServer(this.server);
+                            FMain.setContra(this.contra);
+                            FMain.FormClosed += FMain_FormClosed;
+                            FMain.ShowDialog();
                         }
                         else
                         {
@@ -75,7 +89,8 @@ namespace version1
                 }
                 else
                 {
-                    FConsulta.ShowDialog();
+                    FMain.FormClosed += FMain_FormClosed;
+                    FMain.ShowDialog();
                 }
             }
         }
@@ -126,6 +141,8 @@ namespace version1
                 server.Send(msg);
                 this.BackColor = Color.Gray;
                 Bcon.Text = "Conectar";
+                logged = false;
+                connected=false;
                 server.Shutdown(SocketShutdown.Both);
                 server.Close();
             }
@@ -134,7 +151,7 @@ namespace version1
                 //Creamos un IPEndPoint con el ip del servidor y puerto del servidor 
                 //al que deseamos conectarnos
                 IPAddress direc = IPAddress.Parse("10.4.119.5");
-                IPEndPoint ipep = new IPEndPoint(direc, 50010);
+                IPEndPoint ipep = new IPEndPoint(direc, puerto);
                 //Creamos el socket 
                 server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 try

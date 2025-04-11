@@ -7,9 +7,11 @@
 #include <stdio.h>
 #include <mysql/mysql.h>
 #include <pthread.h>
+#include <time.h>
+
+#define puerto 50010
 
 pthread_mutex_t mutex= PTHREAD_MUTEX_INITIALIZER;
-
 typedef struct{
 	char nombre[100];
 	int socket;
@@ -52,19 +54,18 @@ int crearPartida(char nombreHost[100]) {
 		{
 			listaPartidas[i].estado = 1;
 			strcpy(listaPartidas[i].host, nombreHost);
-			int n;
-			for (n = 0; n < 6; n++)
-				listaPartidas[i]fichasHost[n] = 0;
-			strcpy(listaPartidas[i].j2, "0");
-			for (n = 0; n < 6; n++)
-				listaPartidas[i].fichasJ2[n] = 0;
-			strcpy(listaPartidas[i].j3, "0");
-			for (n = 0; n < 6; n++)
-				listaPartidas[i].fichasJ3[n] = 0;
-			strcpy(listaPartidas[i].j4, "0");
-			for (n = 0; n < 6; n++)
-				listaPartidas[i].fichasJ4[n] = 0;
-			listaPartidas[i].fechaInicio = 0;
+			listaPartidas[i].fichasHost = 0;
+
+			strcpy(listaPartidas[i].j2, "\0");
+			listaPartidas[i].fichasJ2 = 0;
+
+			strcpy(listaPartidas[i].j3, "\0");
+			listaPartidas[i].fichasJ3 = 0;
+
+			strcpy(listaPartidas[i].j4, "\0");
+			listaPartidas[i].fichasJ4 = 0;
+
+			strcpy(listaPartidas[i].fechaInicio,"\0");
 			encontrado = 1;
 		}
 		else
@@ -81,21 +82,20 @@ int crearPartida(char nombreHost[100]) {
 
 int eliminarPartida(int partida){
 	listaPartidas[partida].estado = 0;
-	listaPartidas[partida].numJugadores = -1;
-	strcpy(listaPartidas[partida].host, "0");
-	int n;
-	for (n = 0; n < 6; n++)
-		listaPartidas[partida].fichasHost[n] = 0;
-	strcpy(listaPartidas[partida].j2, "0");
-	for (n = 0; n < 6; n++)
-		listaPartidas[partida].fichasJ2[n] = 0;
-	strcpy(listaPartidas[partida].j3, "0");
-	for (n = 0; n < 6; n++)
-		listaPartidas[partida].fichasJ3[n] = 0;
-	strcpy(listaPartidas[partida].j4, "0");
-	for (n = 0; n < 6; n++)
-		listaPartidas[partida].fichasJ4[n] = 0;
-	listaPartidas[partida].fechaInicio = 0;
+	listaPartidas[partida].numJugadores = 0;
+
+	strcpy(listaPartidas[partida].host, "\0");
+	listaPartidas[partida].fichasHost = 0;
+
+	strcpy(listaPartidas[partida].j2, "\0");
+	listaPartidas[partida].fichasJ2 = 0;
+
+	strcpy(listaPartidas[partida].j3, "\0");
+	listaPartidas[partida].fichasJ3 = 0;
+	strcpy(listaPartidas[partida].j4, "\0");
+	listaPartidas[partida].fichasJ4 = 0;
+
+	strcpy(listaPartidas[partida].fechaInicio , "\0");
 }
 
 void rechazarPartida(int partida, char rechazador[25], int socket) {
@@ -137,30 +137,30 @@ void iniciarPartida(int partida, char jugadoresPartida[500]) {
 		if (socket4 != -1) {
 			char respuesta2[100];
 			sprintf(respuesta2, "%s*%s", respuesta, "j4");
-			printf("%s\n", respuesta2;
+			printf("%s\n", respuesta2);
 			write(socket4, respuesta2, strlen(respuesta2));
 		}
 	}
 	time_t t = time(NULL);
 	struct tm* tm_info = localtime(&t);
-	// Formato personalizado: dd/mm/yyyy hh:mm:ss
+	// Formato:dd/mm/yyyy hh:mm:ss
 	strftime(listaPartidas[partida].fechaInicio, sizeof(listaPartidas[partida].fechaInicio), "%d/%m/%Y %H:%M:%S", tm_info);
 }
 
 void enviarNotificacion(char notificacion[500], int partida, int socket) {
-	int socket1 = DameSocketConectado(listaPartidas[partida].host);
+	int socket1 = dameSocket(listaPartidas[partida].host);
 	if ((socket1 != -1) && (socket1 != socket)) {
 		write(socket1, notificacion, strlen(notificacion));
 		printf("'%s' enviado a socket %d \n", notificacion, socket1);
 	}
-	int socket2 = DameSocketConectado(listaPartidas[partida].j2);
+	int socket2 = dameSocket(listaPartidas[partida].j2);
 	if ((socket2 != -1) && (socket2 != socket)) {
 		write(socket2, notificacion, strlen(notificacion));
 		printf("'%s' enviado a socket %d \n", notificacion, socket2);
 	}
 
 	if (strcmp(listaPartidas[partida].j3, "0") != 0) {
-		int socket3 = DameSocketConectado(tablaP[partida].jug3);
+		int socket3 = dameSocket(listaPartidas[partida].j3);
 		if ((socket3 != -1) && (socket3 != socket))
 		{
 			write(socket3, notificacion, strlen(notificacion));
@@ -168,7 +168,7 @@ void enviarNotificacion(char notificacion[500], int partida, int socket) {
 		}
 	}
 	if (strcmp(listaPartidas[partida].j4, "0") != 0) {
-		int socket4 = DameSocketConectado(tablaP[partida].jug4);
+		int socket4 = dameSocket(listaPartidas[partida].j4);
 		if ((socket4 != -1) && (socket4 != socket)) {
 			write(socket4, notificacion, strlen(notificacion));
 			printf("'%s' enviado a socket %d \n", notificacion, socket4);
@@ -188,7 +188,7 @@ int invitarJugador(char invitados[500], char nombreHost[25], char noDisponibles[
 		int encontrado = 0;
 		int i = 0;
 		while ((i < listaCon.num) && (encontrado == 0)) {
-			if (strcmp(listaCon.conectados[i].nombreHost, t) == 0) {
+			if (strcmp(listaCon.conectados[i].nombre, t) == 0) {
 				char invitacion[512];
 				sprintf(invitacion, "recibirInvitacion/%s*%d", nombreHost, partida);
 				printf("Invitacion: %s\n", invitacion);
@@ -288,10 +288,24 @@ int eliminarCon(ListaConectados *lista, char nombre[100]){
 }
 
 void dameConectados(ListaConectados *lista,char conectados[300]){//Pone en el vetor del parametro todos los conectados (Formato:l/Numero total/nombre/nombre/nombre)
-	sprintf(conectados,"l/%d",lista->num);
+	strcpy(conectados[0], "\0");
+	sprintf(conectados,"l/%d/",lista->num);
 	for(int i=0;i<lista->num;i++){
 		sprintf(conectados, "%s/%s",conectados,lista->conectados[i].nombre);
 	}
+}
+
+void damePartidasJugador(char nombre[25], char partidas[100]) {//lista todas las partidas en las que el jugador del parametro esta participando
+	//las retorna con el formato:partida1/partida2/...
+	int i = 0;
+	strcpy(partidas, "\0");
+	while (i < maxPartidas)
+	{
+		if ((strcmp(nombre, listaPartidas[i].host) == 0) || (strcmp(nombre, listaPartidas[i].j2) == 0) || (strcmp(nombre, listaPartidas[i].j3) == 0) || (strcmp(nombre, listaPartidas[i].j4) == 0))
+			sprintf(partidas, "%s%d/", partidas, i);
+		i = i + 1;
+	}
+	partidas[strlen(partidas) - 1] = '\0';
 }
 
 void *AtenderCliente (void *socket){
@@ -354,9 +368,20 @@ void *AtenderCliente (void *socket){
 		}
 		switch(NumPeticion)
 		{
-		case 0://terminar peticion
+		case 0://terminar conexion
 		{
+			pthread_mutex_lock(&mutex);
 			int res = eliminarCon(&listaCon,IdUsuario);
+			char partidas[100];
+			printf("Conexion cerrada\n");
+			damePartidasJugador(IdUsuario, partidas);
+			char* p = strtok(partidas, "/");
+			while (p != NULL)
+			{
+				int partida = atoi(p);
+				eliminarPartida(partida);
+				p = strtok(NULL, "/");
+			}
 			terminar = 1; 
 			cambios=1;
 		}
@@ -376,21 +401,21 @@ void *AtenderCliente (void *socket){
 			edad = atoi(p);//Ya tenemos la edad
 			pthread_mutex_lock(&mutex);
 			consulta[0] = '\0';//liberar cosulta
-			printf("antes de la consulta"),
+			printf("antes de la consulta\n"),
 				sprintf(consulta, "INSERT INTO jugadores VALUES('%s','%s','%s','%s',%d) " ,IdUsuario ,Contra ,DNI ,nombre ,edad);
-			printf("despues de la consulta"),
+			printf("despues de la consulta\n"),
 				printf("Error MySQL: %s\n", mysql_error(conn));
 			err = mysql_query(conn, consulta);
 			pthread_mutex_unlock(&mutex);
 			if (err != 0) 
 			{
-				printf("Error al registrarse");
+				printf("Error al registrarse\n");
 				strcpy(respuesta, "0");//Operacion no realizada.
 				// Enviamos respuesta
 				write (sock_conn,respuesta, strlen(respuesta));
 			}
 			else{
-				printf("Te has registrado con exito.");
+				printf("Te has registrado con exito.\n");
 				strcpy(respuesta, "1");//Operacion realizada con exito.
 				// Enviamos respuesta
 				write (sock_conn,respuesta, strlen(respuesta)+1);
@@ -404,7 +429,7 @@ void *AtenderCliente (void *socket){
 			sprintf(consulta, "SELECT contra FROM jugadores WHERE jugadores.id_jugador = '%s'", IdUsuario);
 			err = mysql_query(conn, consulta);
 			if (err != 0) {
-				printf("El usuario introducido es incorrecto");
+				printf("El usuario introducido es incorrecto\n");
 				strcpy(respuesta, "0");//Operacion no realizada.
 				// Enviamos respuesta
 				write (sock_conn,respuesta, strlen(respuesta));
@@ -587,12 +612,12 @@ void *AtenderCliente (void *socket){
 			strcpy(invitados, p);
 
 			printf("Numero de socket: %d\n", sock_conn);
-			int partida = CrearPartida(nombre);
+			int partida = crearPartida(IdUsuario);
 			if (partida == -1)
 				sprintf(respuesta, "recibirInvitacion/-1");
 			else {
 				printf("Numero de socket : %d\n", sock_conn);
-				int res = Invitar(invitados, nombre, noDisponibles, partida);
+				int res = invitarJugador(invitados, IdUsuario, noDisponibles, partida);
 
 				if (res == -1) {
 					sprintf(respuesta, "recibirInvitacion/%s", noDisponibles);
@@ -633,7 +658,7 @@ void *AtenderCliente (void *socket){
 		break;
 
 		default:
-			printf("Peticion incorrecta");
+			printf("Peticion incorrecta\n");
 			break;
 		}
 		terminar = 1;
@@ -644,8 +669,8 @@ void *AtenderCliente (void *socket){
 			for(int i=0; i< listaCon.num; i++){
 			pthread_mutex_lock(&mutex);	
 			dameConectados(&listaCon,conectados);
-			conectados[strlen(conectados)]='\0';
-			write(listaCon.conectados[i].socket,conectados,strlen(conectados)+1);
+			conectados[strlen(conectados+1)]='\0';
+			write(listaCon.conectados[i].socket,conectados,strlen(conectados));
 			pthread_mutex_unlock(&mutex);
 			}
 			cambios=0;
@@ -659,7 +684,7 @@ void *AtenderCliente (void *socket){
 			pthread_mutex_lock(&mutex);	
 			dameConectados(&listaCon,conectados);
 			conectados[strlen(conectados)]='\0';
-			write(listaCon.conectados[i].socket,conectados,strlen(conectados)+1);
+			write(listaCon.conectados[i].socket,conectados,strlen(conectados));
 			pthread_mutex_unlock(&mutex);
 			}
 			}
@@ -673,7 +698,6 @@ void *AtenderCliente (void *socket){
 int main(int argc, char *argv[])
 {
 	int sock_conn, sock_listen, ret;
-	int puerto=50010;
 	struct sockaddr_in serv_adr;
 	char peticion[512];
 	char respuesta[100];
@@ -681,7 +705,7 @@ int main(int argc, char *argv[])
 	// INICIALITZACIONS
 	// Obrim el socket
 	if ((sock_listen = socket(AF_INET, SOCK_STREAM, 0)) < 0)
-		printf("Error creant socket");
+		printf("Error creant socket\n");
 	// Fem el bind al port
 	
 	

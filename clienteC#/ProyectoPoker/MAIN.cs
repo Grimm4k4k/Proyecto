@@ -26,6 +26,7 @@ namespace version1
         string id;
         string idP;
         string contra;
+        bool cerrado=false;
         int tiempo;
         Thread atender;
         FormInvitacion formInvi = new FormInvitacion();
@@ -43,23 +44,44 @@ namespace version1
             this.contra = contra;
         }
 
+        public bool getCerrado()
+        {
+            return cerrado;
+        }
+
         private void AtenderServidor()
         {
-            while (true)
+            bool terminar = false;
+            while (terminar==false)
             {
                 byte[] msg = new byte[80];
+                string op;
+                string[] trozos;
+                string mensaje;
                 // recibo mensaje del servidor
-                server.Receive(msg);
-                // Lo convierto a string y lo 'limpio'
-                string mensaje = Encoding.ASCII.GetString(msg).Split('\0')[0];
-                // lo divido en trozos
-                string[] trozos = mensaje.Split('/');
-                string op = trozos[0];
+                try
+                {
+                    server.Receive(msg);
+                    // Lo convierto a string y lo 'limpio'
+                    mensaje = Encoding.ASCII.GetString(msg).Split('\0')[0];
+                    // lo divido en trozos
+                    trozos = mensaje.Split('/');
+                    op = trozos[0];
+                }
+                catch
+                {
+                    op = "a";
+                    trozos = null;
+                    mensaje = null;
+                    terminar=true;
+                }
                 switch (op)
                 {
                     case "a"://Cerrar
                         {
-
+                            MessageBox.Show("Desconectado");
+                            cerrado = true;
+                            this.Close();
                         }
                     break;
 
