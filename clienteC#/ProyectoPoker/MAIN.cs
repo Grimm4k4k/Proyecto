@@ -28,6 +28,7 @@ namespace version1
         string contra;
         int tiempo;
         Thread atender;
+        FormInvitacion formInvi = new FormInvitacion();
 
         public void setServer(Socket server)
         {
@@ -129,6 +130,31 @@ namespace version1
                             });
                         }
                     break;
+
+                    case "recibirInvitacion"://trozos[1]: nombreHost*partida
+                        {
+                            string[] trozos2 = trozos[1].Split('*'); //trozos2=[nombrehost][partida]
+                            formInvi.setHost(trozos2[0]);
+                            formInvi.ShowDialog();
+                            string respuesta = "7/" + formInvi.getRespuesta() + "/" + trozos[0] + "\0";
+                            msg = System.Text.Encoding.ASCII.GetBytes(respuesta);
+                            server.Send(msg);
+                        }
+                    break;
+
+                    case "partidaIniciada":
+                        {
+
+                        }
+                    break;
+
+                    case "partidaRechazada": //	trozos[1]= id de la partida * rechazador
+                        {
+                            idP = trozos[1].Split('*')[0];
+                            MessageBox.Show(trozos[1].Split('*')[1] + " ha rechazado la partida. Por ende, la partida no se iniciará");
+                        }
+                    break;
+
                     default:
                         {
 
@@ -209,6 +235,25 @@ namespace version1
             {
                 MessageBox.Show("Introduce el tiempo en el formato correcto");
             }
+        }
+
+        private void iNVITARToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            label2.Visible = true;
+            invitadoBox.Visible = true;
+            invitarButton.Visible = true;
+        }
+
+        private void invitarButton_Click(object sender, EventArgs e)
+        {
+            label2.Visible = false;
+            invitadoBox.Visible = false;
+            invitarButton.Visible = false;
+            string mensaje = "6/";
+
+            //Lo enviamos por el socket (Codigo 6 - Invitar a jugadores)
+            byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
+            server.Send(msg);
         }
     }
 }
