@@ -9,7 +9,7 @@
 #include <pthread.h>
 #include <time.h>
 
-#define puerto 50010
+#define puerto 9003
 
 pthread_mutex_t mutex= PTHREAD_MUTEX_INITIALIZER;
 typedef struct{
@@ -276,7 +276,7 @@ int dameSocket (ListaConectados *lista, char nombre[100]){ //No devuelve el nume
 }
 
 int eliminarCon(ListaConectados *lista, char nombre[100]){
-	int posSocket= dameSocket(&lista,nombre);
+	int posSocket= dameSocket(lista,nombre);
 	if(posSocket==-1){
 		return -1;
 	}
@@ -284,12 +284,15 @@ int eliminarCon(ListaConectados *lista, char nombre[100]){
 		lista->conectados[i] = lista->conectados[i+1];
 	}
 	lista->num--;
+	if(lista->num==0){
+		strcpy(lista->conectados,"\0");
+	}
 	return 0;
 }
 
 void dameConectados(ListaConectados *lista,char conectados[300]){//Pone en el vetor del parametro todos los conectados (Formato:l/Numero total/nombre/nombre/nombre)
-	strcpy(conectados[0], "\0");
-	sprintf(conectados,"l/%d/",lista->num);
+	strcpy(conectados, "\0");
+	sprintf(conectados,"l/%d",lista->num);
 	for(int i=0;i<lista->num;i++){
 		sprintf(conectados, "%s/%s",conectados,lista->conectados[i].nombre);
 	}
@@ -333,7 +336,7 @@ void *AtenderCliente (void *socket){
 		exit(1);
 	}
 	
-	conn = mysql_real_connect(conn, "shiva2.upc.es", "root", "mysql", "M3_BBDDPoker", 0, NULL, 0);
+	conn = mysql_real_connect(conn, "localhost", "root", "mysql", "poker", 0, NULL, 0);
 	if (conn == NULL) {
 		printf("Error al inicializar la conexión: %u %s\n", mysql_errno(conn), mysql_error(conn));
 		exit(1);
@@ -445,7 +448,7 @@ void *AtenderCliente (void *socket){
 				}
 				row = mysql_fetch_row(resultado);
 				if(strcmp(Contra,row[0]) == 0){
-					printf("Has iniciado sesion con exito.");
+					printf("Has iniciado sesion con exito.\n");
 					strcpy(respuesta, "1");//Operacion realizada con exito.
 					// Enviamos respuesta
 					write (sock_conn,respuesta, strlen(respuesta)+1);
@@ -607,9 +610,9 @@ void *AtenderCliente (void *socket){
 		{
 			p = strtok(NULL, "/");
 			char invitados[500];
-			printf("Numero de invitados: %d Invitados: %s\n", sock_conn, invitados);
 			char noDisponibles[500];
 			strcpy(invitados, p);
+			printf("Invitado: %s\n",invitados);
 
 			printf("Numero de socket: %d\n", sock_conn);
 			int partida = crearPartida(IdUsuario);
@@ -669,7 +672,7 @@ void *AtenderCliente (void *socket){
 			for(int i=0; i< listaCon.num; i++){
 			pthread_mutex_lock(&mutex);	
 			dameConectados(&listaCon,conectados);
-			conectados[strlen(conectados+1)]='\0';
+			conectados[strlen(conectados)]='\0';
 			write(listaCon.conectados[i].socket,conectados,strlen(conectados));
 			pthread_mutex_unlock(&mutex);
 			}
@@ -678,10 +681,10 @@ void *AtenderCliente (void *socket){
 	}
 		else{
 			terminar=1;
+			pthread_mutex_lock(&mutex);	
 			int r = eliminarCon(&listaCon,IdUsuario);
 			if(r==0){
 				for(int i=0; i< listaCon.num; i++){
-			pthread_mutex_lock(&mutex);	
 			dameConectados(&listaCon,conectados);
 			conectados[strlen(conectados)]='\0';
 			write(listaCon.conectados[i].socket,conectados,strlen(conectados));

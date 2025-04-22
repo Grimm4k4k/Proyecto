@@ -33,6 +33,7 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.conQuePersonasHeJugadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cuantasPartidasSeHanJugadoEnXTiempoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.iNVITARToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loginLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.idPbox = new System.Windows.Forms.TextBox();
@@ -42,10 +43,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.TBox = new System.Windows.Forms.TextBox();
             this.buscartiempo = new System.Windows.Forms.Button();
-            this.iNVITARToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label2 = new System.Windows.Forms.Label();
             this.invitadoBox = new System.Windows.Forms.TextBox();
             this.invitarButton = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -93,6 +94,13 @@
             this.cuantasPartidasSeHanJugadoEnXTiempoToolStripMenuItem.Size = new System.Drawing.Size(321, 22);
             this.cuantasPartidasSeHanJugadoEnXTiempoToolStripMenuItem.Text = "3. Cuantas partidas se han jugado en x tiempo?";
             this.cuantasPartidasSeHanJugadoEnXTiempoToolStripMenuItem.Click += new System.EventHandler(this.cuantasPartidasSeHanJugadoEnXTiempoToolStripMenuItem_Click);
+            // 
+            // iNVITARToolStripMenuItem
+            // 
+            this.iNVITARToolStripMenuItem.Name = "iNVITARToolStripMenuItem";
+            this.iNVITARToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+            this.iNVITARToolStripMenuItem.Text = "INVITAR";
+            this.iNVITARToolStripMenuItem.Click += new System.EventHandler(this.iNVITARToolStripMenuItem_Click);
             // 
             // loginLabel
             // 
@@ -179,13 +187,6 @@
             this.buscartiempo.Visible = false;
             this.buscartiempo.Click += new System.EventHandler(this.buscartiempo_Click);
             // 
-            // iNVITARToolStripMenuItem
-            // 
-            this.iNVITARToolStripMenuItem.Name = "iNVITARToolStripMenuItem";
-            this.iNVITARToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
-            this.iNVITARToolStripMenuItem.Text = "INVITAR";
-            this.iNVITARToolStripMenuItem.Click += new System.EventHandler(this.iNVITARToolStripMenuItem_Click);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -215,11 +216,23 @@
             this.invitarButton.Visible = false;
             this.invitarButton.Click += new System.EventHandler(this.invitarButton_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.Red;
+            this.label4.Location = new System.Drawing.Point(89, 110);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(274, 13);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "IMPORTANTE: Seguir el formato: invitado1/invitado2/...";
+            this.label4.Visible = false;
+            // 
             // MAIN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.invitarButton);
             this.Controls.Add(this.invitadoBox);
             this.Controls.Add(this.label2);
@@ -265,5 +278,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox invitadoBox;
         private System.Windows.Forms.Button invitarButton;
+        private System.Windows.Forms.Label label4;
     }
 }

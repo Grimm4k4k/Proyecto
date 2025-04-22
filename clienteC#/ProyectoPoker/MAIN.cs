@@ -264,6 +264,7 @@ namespace version1
             label2.Visible = true;
             invitadoBox.Visible = true;
             invitarButton.Visible = true;
+            label4.Visible = true;
         }
 
         private void invitarButton_Click(object sender, EventArgs e)
@@ -271,7 +272,9 @@ namespace version1
             label2.Visible = false;
             invitadoBox.Visible = false;
             invitarButton.Visible = false;
-            string mensaje = "6/";
+            label4.Visible = false;
+            string invitados=invitadoBox.Text;
+            string mensaje = "6/" + id + "/" + contra + "/" + invitados;
 
             //Lo enviamos por el socket (Codigo 6 - Invitar a jugadores)
             byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
