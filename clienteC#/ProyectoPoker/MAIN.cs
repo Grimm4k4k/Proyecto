@@ -30,6 +30,7 @@ namespace version1
         int tiempo;
         Thread atender;
         FormInvitacion formInvi = new FormInvitacion();
+        FormJuego formJuego = new FormJuego(); 
 
         public void setServer(Socket server)
         {
@@ -156,16 +157,23 @@ namespace version1
                     case "recibirInvitacion"://trozos[1]: nombreHost*partida
                         {
                             string[] trozos2 = trozos[1].Split('*'); //trozos2=[nombrehost][partida]
+                           
                             formInvi.setHost(trozos2[0]);
                             formInvi.ShowDialog();
-                            string respuesta = "7/" + formInvi.getRespuesta() + "/" + trozos[0] + "\0";
+                            string respuesta = "7/" + id + "/" + contra + "/" + formInvi.getRespuesta() + "/" + trozos2[1] + "\0";
                             msg = System.Text.Encoding.ASCII.GetBytes(respuesta);
                             server.Send(msg);
+                            
+                            
                         }
                     break;
 
-                    case "partidaIniciada":
+                    case "partidaIniciada": // trozos[2]: jugador*jugador2*jugador3
                         {
+                            formJuego.setJugadores(trozos[2]);
+                            formJuego.setIdPartida(idP);
+                            formJuego.setId(id);
+                            formJuego.ShowDialog();
 
                         }
                     break;

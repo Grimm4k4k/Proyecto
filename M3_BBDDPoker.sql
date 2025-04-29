@@ -51,9 +51,9 @@ FOREIGN KEY (idJ) REFERENCES jugadores(id_jugador)
 
 
 
-INSERT INTO jugadores VALUES ('J1','gery05','21200212L','gery',19);
-INSERT INTO jugadores VALUES ('J2','jose05','56839759G','jose',19);
-INSERT INTO jugadores VALUES ('J3','merce05','47439285B','merce',20);
+INSERT INTO jugadores VALUES ('J1','a','21200212L','gery',19);
+INSERT INTO jugadores VALUES ('J2','a','56839759G','jose',19);
+INSERT INTO jugadores VALUES ('J3','a','47439285B','merce',20);
 
 
 INSERT INTO informacion VALUES (10000, 10000, 200, 100,'J1');

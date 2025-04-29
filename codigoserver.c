@@ -9,7 +9,7 @@
 #include <pthread.h>
 #include <time.h>
 
-#define puerto 9003
+#define puerto 9010
 
 pthread_mutex_t mutex= PTHREAD_MUTEX_INITIALIZER;
 typedef struct{
@@ -106,39 +106,39 @@ void rechazarPartida(int partida, char rechazador[25], int socket) {
 
 void iniciarPartida(int partida, char jugadoresPartida[500]) {
 	char respuesta[100];
-	sprintf(respuesta, "partidaIniciada/%d*%s", partida, jugadoresPartida);
+	sprintf(respuesta, "partidaIniciada/%d/%s", partida, jugadoresPartida);
 	printf("Iniciar partida: %s\n", respuesta);
 	int socket1 = dameSocket(listaPartidas[partida].host);
 	if (socket1 != -1) {
 		char respuesta2[100];
-		sprintf(respuesta2, "%s*%s", respuesta, "host");
+		sprintf(respuesta2, "%s*%s\0", respuesta, "host");
 		printf("%s\n", respuesta2);
-		write(socket1, respuesta2, strlen(respuesta2));
+		write(listaCon.conectados[socket1].socket, respuesta2, strlen(respuesta2));
 	}
 	int socket2 = dameSocket(listaPartidas[partida].j2);
 	if (socket2 != -1) {
 		char respuesta2[100];
-		sprintf(respuesta2, "%s*%s", respuesta, "j2");
+		sprintf(respuesta2, "%s*%s\0", respuesta, "j2");
 		printf("%s\n", respuesta2);
-		write(socket2, respuesta2, strlen(respuesta2));
+		write(listaCon.conectados[socket2].socket, respuesta2, strlen(respuesta2));
 	}
 
-	if (strcmp(listaPartidas[partida].j3, "0") != 0) {
+	if (strcmp(listaPartidas[partida].j3, "\0") != 0) {
 		int socket3 = dameSocket(listaPartidas[partida].j3);
 		if (socket3 != -1) {
 			char respuesta2[100];
-			sprintf(respuesta2, "%s*%s", respuesta, "j3");
+			sprintf(respuesta2, "%s*%s\0", respuesta, "j3");
 			printf("%s\n", respuesta2);
-			write(socket3, respuesta2, strlen(respuesta2));
+			write(listaCon.conectados[socket3].socket, respuesta2, strlen(respuesta2));
 		}
 	}
-	if (strcmp(listaPartidas[partida].j4, "0") != 0) {
+	if (strcmp(listaPartidas[partida].j4, "\0") != 0) {
 		int socket4 = dameSocket(listaPartidas[partida].j4);
 		if (socket4 != -1) {
 			char respuesta2[100];
-			sprintf(respuesta2, "%s*%s", respuesta, "j4");
+			sprintf(respuesta2, "%s*%s\0", respuesta, "j4");
 			printf("%s\n", respuesta2);
-			write(socket4, respuesta2, strlen(respuesta2));
+			write(listaCon.conectados[socket4].socket, respuesta2, strlen(respuesta2));
 		}
 	}
 	time_t t = time(NULL);
@@ -159,7 +159,7 @@ void enviarNotificacion(char notificacion[500], int partida, int socket) {
 		printf("'%s' enviado a socket %d \n", notificacion, socket2);
 	}
 
-	if (strcmp(listaPartidas[partida].j3, "0") != 0) {
+	if (strcmp(listaPartidas[partida].j3, "\0") != 0) {
 		int socket3 = dameSocket(listaPartidas[partida].j3);
 		if ((socket3 != -1) && (socket3 != socket))
 		{
@@ -167,7 +167,7 @@ void enviarNotificacion(char notificacion[500], int partida, int socket) {
 			printf("'%s' enviado a socket %d \n", notificacion, socket3);
 		}
 	}
-	if (strcmp(listaPartidas[partida].j4, "0") != 0) {
+	if (strcmp(listaPartidas[partida].j4, "\0") != 0) {
 		int socket4 = dameSocket(listaPartidas[partida].j4);
 		if ((socket4 != -1) && (socket4 != socket)) {
 			write(socket4, notificacion, strlen(notificacion));
@@ -188,7 +188,7 @@ int invitarJugador(char invitados[500], char nombreHost[25], char noDisponibles[
 		int encontrado = 0;
 		int i = 0;
 		while ((i < listaCon.num) && (encontrado == 0)) {
-			if (strcmp(listaCon.conectados[i].nombre, t) == 0) {
+			if ((strcmp(listaCon.conectados[i].nombre, t) == 0)&&(strcmp(listaCon.conectados[i].nombre, nombreHost) != 0)) {
 				char invitacion[512];
 				sprintf(invitacion, "recibirInvitacion/%s*%d", nombreHost, partida);
 				printf("Invitacion: %s\n", invitacion);
@@ -202,7 +202,7 @@ int invitarJugador(char invitados[500], char nombreHost[25], char noDisponibles[
 		if (encontrado == 0) {
 			res = -1;
 			sprintf(noDisponibles, "%s%s*", noDisponibles, t);
-			noDisponibles[strlen(noDisponibles) - 1] = '\0';
+			noDisponibles[strlen(noDisponibles)] = '\0';
 		}
 		t = strtok(NULL, "*");
 	}
@@ -220,12 +220,12 @@ int addJugador(char nombre[25], int partida) {
 	//Devuelve 1 si se han añadido todos los jugadores correctamente
 	int numInvitados = listaPartidas[partida].numJugadores-1;
 	pthread_mutex_lock(&mutex);
-	if (strcmp(listaPartidas[partida].j2, "0") == 0) {
+	if (strcmp(listaPartidas[partida].j2, "\0") == 0) {
 		strcpy(listaPartidas[partida].j2, nombre);
 	}
-	else if (strcmp(listaPartidas[partida].j3, "0") == 0)
+	else if (strcmp(listaPartidas[partida].j3, "\0") == 0)
 		strcpy(listaPartidas[partida].j3, nombre);
-	else if (strcmp(listaPartidas[partida].j4, "0") == 0)
+	else if (strcmp(listaPartidas[partida].j4, "\0") == 0)
 		strcpy(listaPartidas[partida].j4, nombre);
 
 	numInvitados = numInvitados-1;
@@ -237,10 +237,10 @@ int addJugador(char nombre[25], int partida) {
 int dameJugadoresPartida(int partida, char jugadores[500]) {
 	sprintf(jugadores, "%s*%s", listaPartidas[partida].host, listaPartidas[partida].j2);
 	int numJugadores = 2;
-	if (strcmp(listaPartidas[partida].j3, "0") != 0) {
+	if (strcmp(listaPartidas[partida].j3, "\0") != 0) {
 		sprintf(jugadores, "%s*%s", jugadores, listaPartidas[partida].j3);
 		numJugadores = numJugadores + 1;
-		if (strcmp(listaPartidas[partida].j4, "0") != 0) {
+		if (strcmp(listaPartidas[partida].j4, "\0") != 0) {
 			sprintf(jugadores, "%s*%s", jugadores, listaPartidas[partida].j4);
 			numJugadores = numJugadores + 1;
 		}
@@ -258,11 +258,11 @@ int addCon (ListaConectados *lista, char nombre[100],int socket){
 	return 0;
 }
 
-int dameSocket (ListaConectados *lista, char nombre[100]){ //No devuelve el numero del socket como tal sino su posicion
+int dameSocket (char nombre[100]){ //No devuelve el numero del socket como tal sino su posicion
 	int i =0;
 	int encontrado =0;
-	while((i<lista->num)&&(encontrado==0)){
-		if(strcmp(lista->conectados[i].nombre,nombre)==0){
+	while((i<listaCon.num)&&(encontrado==0)){
+		if(strcmp(listaCon.conectados[i].nombre,nombre)==0){
 			encontrado=1;
 		}
 		if(encontrado==0){
@@ -272,11 +272,11 @@ int dameSocket (ListaConectados *lista, char nombre[100]){ //No devuelve el nume
 		if(encontrado==1)
 		   return i;
 		if(encontrado==0)
-			return -1;
+		   return -1;
 }
 
 int eliminarCon(ListaConectados *lista, char nombre[100]){
-	int posSocket= dameSocket(lista,nombre);
+	int posSocket= dameSocket(nombre);
 	if(posSocket==-1){
 		return -1;
 	}
@@ -616,19 +616,15 @@ void *AtenderCliente (void *socket){
 
 			printf("Numero de socket: %d\n", sock_conn);
 			int partida = crearPartida(IdUsuario);
-			if (partida == -1)
+			if (partida == -1){
 				sprintf(respuesta, "recibirInvitacion/-1");
+				write(sock_conn,respuesta, strlen(respuesta));
+			}
 			else {
 				printf("Numero de socket : %d\n", sock_conn);
 				int res = invitarJugador(invitados, IdUsuario, noDisponibles, partida);
-
-				if (res == -1) {
-					sprintf(respuesta, "recibirInvitacion/%s", noDisponibles);
-				}
-				else {
-					strcpy(respuesta, "recibirInvitacion/0");
-				}
 			}
+				
 		}
 		break;
 
@@ -640,12 +636,15 @@ void *AtenderCliente (void *socket){
 			p = strtok(NULL, "/");
 			int idPartida;
 			idPartida = atoi(p);
-			if (strcmp(respuesta2, "NO") == 0) {
+			if (strcmp(respuesta2, "no") == 0) {
 				printf("Numero de socket: %d\n", sock_conn);
 				rechazarPartida(idPartida, IdUsuario, sock_conn);
 				pthread_mutex_lock(&mutex);
 				eliminarPartida(idPartida);
 				pthread_mutex_unlock(&mutex);
+				strcpy(respuesta,"partidaRechazada/");
+				sprintf(respuesta,"%s%d*%s",respuesta,idPartida,IdUsuario);
+				write(sock_conn,respuesta,strlen(respuesta));
 			}
 			else {
 				int res = addJugador(IdUsuario, idPartida);
@@ -655,6 +654,7 @@ void *AtenderCliente (void *socket){
 					dameJugadoresPartida(idPartida, jugadoresPartida);
 					printf("Numero de socket: %d\n", sock_conn);
 					iniciarPartida(idPartida, jugadoresPartida);
+					
 				}
 			}
 		}
@@ -685,11 +685,11 @@ void *AtenderCliente (void *socket){
 			int r = eliminarCon(&listaCon,IdUsuario);
 			if(r==0){
 				for(int i=0; i< listaCon.num; i++){
-			dameConectados(&listaCon,conectados);
-			conectados[strlen(conectados)]='\0';
-			write(listaCon.conectados[i].socket,conectados,strlen(conectados));
-			pthread_mutex_unlock(&mutex);
-			}
+					dameConectados(&listaCon,conectados);
+					conectados[strlen(conectados)]='\0';
+					write(listaCon.conectados[i].socket,conectados,strlen(conectados));
+					pthread_mutex_unlock(&mutex);
+				}
 			}
 		}
 	}
