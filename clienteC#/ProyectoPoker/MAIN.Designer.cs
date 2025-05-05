@@ -47,6 +47,10 @@
             this.invitadoBox = new System.Windows.Forms.TextBox();
             this.invitarButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.enviarBtn = new System.Windows.Forms.Button();
+            this.chatBox = new System.Windows.Forms.RichTextBox();
+            this.enviarBox = new System.Windows.Forms.TextBox();
+            this.chatLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,7 +63,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1904, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -105,7 +109,7 @@
             // loginLabel
             // 
             this.loginLabel.AutoSize = true;
-            this.loginLabel.Location = new System.Drawing.Point(655, 34);
+            this.loginLabel.Location = new System.Drawing.Point(1745, 41);
             this.loginLabel.Name = "loginLabel";
             this.loginLabel.Size = new System.Drawing.Size(0, 13);
             this.loginLabel.TabIndex = 1;
@@ -153,7 +157,7 @@
             // labelCon
             // 
             this.labelCon.AutoSize = true;
-            this.labelCon.Location = new System.Drawing.Point(698, 58);
+            this.labelCon.Location = new System.Drawing.Point(1788, 65);
             this.labelCon.Name = "labelCon";
             this.labelCon.Size = new System.Drawing.Size(0, 13);
             this.labelCon.TabIndex = 6;
@@ -161,7 +165,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(688, 34);
+            this.label3.Location = new System.Drawing.Point(1778, 41);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(91, 13);
             this.label3.TabIndex = 7;
@@ -227,11 +231,61 @@
             this.label4.Text = "IMPORTANTE: Seguir el formato: invitado1/invitado2/...";
             this.label4.Visible = false;
             // 
+            // enviarBtn
+            // 
+            this.enviarBtn.AutoSize = true;
+            this.enviarBtn.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.enviarBtn.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.enviarBtn.Location = new System.Drawing.Point(1787, 898);
+            this.enviarBtn.Name = "enviarBtn";
+            this.enviarBtn.Size = new System.Drawing.Size(75, 26);
+            this.enviarBtn.TabIndex = 17;
+            this.enviarBtn.Text = "Enviar";
+            this.enviarBtn.UseVisualStyleBackColor = true;
+            this.enviarBtn.Visible = false;
+            this.enviarBtn.Click += new System.EventHandler(this.enviarBtn_Click);
+            // 
+            // chatBox
+            // 
+            this.chatBox.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chatBox.Location = new System.Drawing.Point(1620, 717);
+            this.chatBox.Name = "chatBox";
+            this.chatBox.ReadOnly = true;
+            this.chatBox.Size = new System.Drawing.Size(249, 172);
+            this.chatBox.TabIndex = 16;
+            this.chatBox.Text = "";
+            this.chatBox.Visible = false;
+            // 
+            // enviarBox
+            // 
+            this.enviarBox.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.enviarBox.Location = new System.Drawing.Point(1620, 901);
+            this.enviarBox.Name = "enviarBox";
+            this.enviarBox.Size = new System.Drawing.Size(161, 20);
+            this.enviarBox.TabIndex = 15;
+            this.enviarBox.Visible = false;
+            // 
+            // chatLabel
+            // 
+            this.chatLabel.AutoSize = true;
+            this.chatLabel.Font = new System.Drawing.Font("Javanese Text", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chatLabel.Location = new System.Drawing.Point(1715, 671);
+            this.chatLabel.Name = "chatLabel";
+            this.chatLabel.Size = new System.Drawing.Size(76, 43);
+            this.chatLabel.TabIndex = 14;
+            this.chatLabel.Text = "CHAT";
+            this.chatLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.chatLabel.Visible = false;
+            // 
             // MAIN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1904, 961);
+            this.Controls.Add(this.enviarBtn);
+            this.Controls.Add(this.chatBox);
+            this.Controls.Add(this.enviarBox);
+            this.Controls.Add(this.chatLabel);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.invitarButton);
             this.Controls.Add(this.invitadoBox);
@@ -248,6 +302,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MAIN";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Consulta";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MAIN_FormClosed);
             this.Load += new System.EventHandler(this.Consulta_Load);
@@ -279,5 +334,9 @@
         private System.Windows.Forms.TextBox invitadoBox;
         private System.Windows.Forms.Button invitarButton;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button enviarBtn;
+        private System.Windows.Forms.RichTextBox chatBox;
+        private System.Windows.Forms.TextBox enviarBox;
+        private System.Windows.Forms.Label chatLabel;
     }
 }

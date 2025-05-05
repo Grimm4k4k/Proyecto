@@ -148,19 +148,19 @@ void iniciarPartida(int partida, char jugadoresPartida[500]) {
 }
 
 void enviarNotificacion(char notificacion[500], int partida, int socket) {
-	int socket1 = dameSocket(listaPartidas[partida].host);
+	int socket1 = listaCon.conectados[dameSocket(listaPartidas[partida].host)].socket;
 	if ((socket1 != -1) && (socket1 != socket)) {
 		write(socket1, notificacion, strlen(notificacion));
 		printf("'%s' enviado a socket %d \n", notificacion, socket1);
 	}
-	int socket2 = dameSocket(listaPartidas[partida].j2);
+	int socket2 =  listaCon.conectados[dameSocket(listaPartidas[partida].j2)].socket;
 	if ((socket2 != -1) && (socket2 != socket)) {
 		write(socket2, notificacion, strlen(notificacion));
 		printf("'%s' enviado a socket %d \n", notificacion, socket2);
 	}
 
 	if (strcmp(listaPartidas[partida].j3, "\0") != 0) {
-		int socket3 = dameSocket(listaPartidas[partida].j3);
+		int socket3 =  listaCon.conectados[dameSocket(listaPartidas[partida].j3)].socket;
 		if ((socket3 != -1) && (socket3 != socket))
 		{
 			write(socket3, notificacion, strlen(notificacion));
@@ -168,7 +168,7 @@ void enviarNotificacion(char notificacion[500], int partida, int socket) {
 		}
 	}
 	if (strcmp(listaPartidas[partida].j4, "\0") != 0) {
-		int socket4 = dameSocket(listaPartidas[partida].j4);
+		int socket4 =  listaCon.conectados[dameSocket(listaPartidas[partida].j4)].socket;
 		if ((socket4 != -1) && (socket4 != socket)) {
 			write(socket4, notificacion, strlen(notificacion));
 			printf("'%s' enviado a socket %d \n", notificacion, socket4);
@@ -336,7 +336,7 @@ void *AtenderCliente (void *socket){
 		exit(1);
 	}
 	
-	conn = mysql_real_connect(conn, "localhost", "root", "mysql", "poker", 0, NULL, 0);
+	conn = mysql_real_connect(conn, "localhost", "root", "mysql", "M3_BBDDPoker", 0, NULL, 0);
 	if (conn == NULL) {
 		printf("Error al inicializar la conexión: %u %s\n", mysql_errno(conn), mysql_error(conn));
 		exit(1);
@@ -657,6 +657,20 @@ void *AtenderCliente (void *socket){
 					
 				}
 			}
+		}
+		break;
+		case 8://Recibir mensaje en el chat
+		{
+			p = strtok(NULL,"/");
+			int idP = atoi(p);
+			p = strtok(NULL,"/");
+			char mensaje[500];
+			strcpy(mensaje,p);
+			
+			//Notificamos a todos menos a uno mismo (envia el cliente de este thread -> nombre)
+			char notificacion[500];
+			sprintf(notificacion,"nuevoChat/%s*%s",IdUsuario,mensaje);
+			enviarNotificacion(notificacion,idP,sock_conn);
 		}
 		break;
 

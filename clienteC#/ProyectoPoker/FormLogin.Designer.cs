@@ -67,7 +67,7 @@
             this.contraBox.Name = "contraBox";
             this.contraBox.Size = new System.Drawing.Size(100, 20);
             this.contraBox.TabIndex = 3;
-            this.contraBox.Text = "gery05";
+            this.contraBox.Text = "a";
             // 
             // BAceptar
             // 

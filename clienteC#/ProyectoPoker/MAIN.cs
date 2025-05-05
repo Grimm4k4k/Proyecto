@@ -21,6 +21,8 @@ namespace version1
         public MAIN()
         {
             InitializeComponent();
+            chat = new Queue<string>();
+
         }
         Socket server;
         string id;
@@ -30,7 +32,10 @@ namespace version1
         int tiempo;
         Thread atender;
         FormInvitacion formInvi = new FormInvitacion();
-        FormJuego formJuego = new FormJuego(); 
+
+        string jdp;
+        Queue<string> chat;
+
 
         public void setServer(Socket server)
         {
@@ -168,13 +173,17 @@ namespace version1
                         }
                     break;
 
-                    case "partidaIniciada": // trozos[2]: jugador*jugador2*jugador3
+                    case "partidaIniciada":
                         {
-                            formJuego.setJugadores(trozos[2]);
-                            formJuego.setIdPartida(idP);
-                            formJuego.setId(id);
-                            formJuego.ShowDialog();
-
+                            idP = trozos[1].ToString();
+                            jdp = trozos[2];
+                            this.Invoke((MethodInvoker)delegate
+                            {
+                                enviarBox.Visible = true;
+                                enviarBtn.Visible = true;
+                                chatBox.Visible = true;
+                                chatLabel.Visible = true;
+                            });
                         }
                     break;
 
@@ -182,6 +191,11 @@ namespace version1
                         {
                             idP = trozos[1].Split('*')[0];
                             MessageBox.Show(trozos[1].Split('*')[1] + " ha rechazado la partida. Por ende, la partida no se iniciará");
+                        }
+                    break;
+                    case "nuevoChat": //trozos[1]= id remitente * mensaje
+                        {
+                            NuevoChat(trozos[1]);
                         }
                     break;
 
@@ -287,6 +301,78 @@ namespace version1
             //Lo enviamos por el socket (Codigo 6 - Invitar a jugadores)
             byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
             server.Send(msg);
+        }
+
+        private void enviarBtn_Click(object sender, EventArgs e)
+        {
+            if (enviarBox.Text != "")
+            {
+                string mensaje = "8/" + id + "/" + contra + "/"+ idP + "/" + enviarBox.Text + "\0";
+                byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
+                server.Send(msg);
+
+                //Escribimos en el chat lo que enviamos
+                string mchat = "Yo: " + enviarBox.Text;
+                if (chat.Count >= 9)
+                {
+                    chat.Dequeue();
+                    chat.Enqueue(mchat);
+
+                    chatBox.Clear();
+                    foreach (string msgChat in chat)
+                    {
+                        chatBox.Text = chatBox.Text + msgChat + Environment.NewLine;
+                    }
+                }
+                else if (chat.Count == 8)
+                {
+                    chat.Enqueue(mchat);
+                    chatBox.Text = chatBox.Text + mchat;
+                }
+                else
+                {
+                    chat.Enqueue(mchat);
+                    chatBox.Text = chatBox.Text + mchat + Environment.NewLine;
+                }
+                //Borramos lo escrito una vez enviado
+                enviarBox.Clear();
+            }
+        }
+
+        public void NuevoChat(string datos)
+        {
+            string mensaje = datos.Split('*')[0] + ": " + datos.Split('*')[1];
+
+            if (chat.Count >= 9)
+            {
+                chat.Dequeue();
+                chat.Enqueue(mensaje);
+
+                chatBox.Clear();
+                foreach (string msgChat in chat)
+                {
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        chatBox.Text = chatBox.Text + msgChat + Environment.NewLine;
+                    });
+                }
+            }
+            else if (chat.Count == 8)
+            {
+                chat.Enqueue(mensaje);
+                this.Invoke((MethodInvoker)delegate
+                {
+                    chatBox.Text = chatBox.Text + mensaje;
+                });
+            }
+            else
+            {
+                chat.Enqueue(mensaje);
+                this.Invoke((MethodInvoker)delegate
+                {
+                    chatBox.Text = chatBox.Text + mensaje + Environment.NewLine;
+                });
+            }
         }
     }
 }
