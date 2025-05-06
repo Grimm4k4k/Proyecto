@@ -17,6 +17,7 @@ namespace version1
         public Cliente()
         {
             InitializeComponent();
+            CheckForIllegalCrossThreadCalls = false;
         }
 
         int puerto = 9010;

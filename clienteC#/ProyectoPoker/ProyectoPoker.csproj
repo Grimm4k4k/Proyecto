@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="baraja.cs" />
+    <Compile Include="carta.cs" />
     <Compile Include="Cliente.cs">
       <SubType>Form</SubType>
     </Compile>

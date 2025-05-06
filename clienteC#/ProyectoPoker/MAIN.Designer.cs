@@ -76,7 +76,6 @@
             this.mENUDECONSULTASToolStripMenuItem.Name = "mENUDECONSULTASToolStripMenuItem";
             this.mENUDECONSULTASToolStripMenuItem.Size = new System.Drawing.Size(138, 20);
             this.mENUDECONSULTASToolStripMenuItem.Text = "MENU DE CONSULTAS";
-            this.mENUDECONSULTASToolStripMenuItem.Click += new System.EventHandler(this.mENUDECONSULTASToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
@@ -170,7 +169,6 @@
             this.label3.Size = new System.Drawing.Size(91, 13);
             this.label3.TabIndex = 7;
             this.label3.Text = "Lista conectados:";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // TBox
             // 
@@ -304,7 +302,6 @@
             this.Name = "MAIN";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Consulta";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MAIN_FormClosed);
             this.Load += new System.EventHandler(this.Consulta_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

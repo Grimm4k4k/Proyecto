@@ -21,6 +21,7 @@ namespace version1
         public MAIN()
         {
             InitializeComponent();
+            CheckForIllegalCrossThreadCalls=false;
             chat = new Queue<string>();
 
         }
@@ -37,7 +38,10 @@ namespace version1
         Queue<string> chat;
 
 
-        public void setServer(Socket server)
+
+
+
+            public void setServer(Socket server)
         {
             this.server = server;
         }
@@ -242,27 +246,12 @@ namespace version1
             server.Send(msg);
         }
 
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void MAIN_FormClosed(object sender, FormClosedEventArgs e)
-        {
-
-        }
-
         private void cuantasPartidasSeHanJugadoEnXTiempoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             labeltiempo.Visible = true;
             TBox.Visible = true;
             buscartiempo.Visible = true;
 
-        }
-
-        private void mENUDECONSULTASToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-       
         }
 
         private void buscartiempo_Click(object sender, EventArgs e)
@@ -374,5 +363,8 @@ namespace version1
                 });
             }
         }
+
+
+
     }
 }
