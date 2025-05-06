@@ -60,6 +60,7 @@
     <Compile Include="FormInvitacion.Designer.cs">
       <DependentUpon>FormInvitacion.cs</DependentUpon>
     </Compile>
+    <Compile Include="ListaJugadores.cs" />
     <Compile Include="MAIN.cs">
       <SubType>Form</SubType>
     </Compile>

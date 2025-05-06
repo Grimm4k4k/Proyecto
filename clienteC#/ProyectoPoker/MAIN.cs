@@ -23,7 +23,6 @@ namespace version1
             InitializeComponent();
             CheckForIllegalCrossThreadCalls=false;
             chat = new Queue<string>();
-
         }
         Socket server;
         string id;
@@ -33,15 +32,14 @@ namespace version1
         int tiempo;
         Thread atender;
         FormInvitacion formInvi = new FormInvitacion();
-
         string jdp;
+        int fichas;
         Queue<string> chat;
+        ListaJugadores listaJugadores = new ListaJugadores();
 
 
 
-
-
-            public void setServer(Socket server)
+        public void setServer(Socket server)
         {
             this.server = server;
         }
@@ -180,13 +178,24 @@ namespace version1
                     case "partidaIniciada":
                         {
                             idP = trozos[1].ToString();
-                            jdp = trozos[2];
+                            jdp = trozos[2].Split(';')[0];
+                            string[] jdp2 = jdp.Split('*');
+                            int i = 0;
+                            foreach (string jugador in jdp2)
+                            {
+                                listaJugadores.idJugador[i]= jugador;
+                            }
+                            fichas = Convert.ToInt32(trozos[3]);
                             this.Invoke((MethodInvoker)delegate
                             {
                                 enviarBox.Visible = true;
                                 enviarBtn.Visible = true;
                                 chatBox.Visible = true;
                                 chatLabel.Visible = true;
+                                tableroPictureBox.Visible = true;
+                                fichasLabel.Visible = true;
+                                fichasLabel.Text= fichasLabel.Text+ " "+fichas.ToString();
+                                this.BackColor = Color.Green;
                             });
                         }
                     break;
