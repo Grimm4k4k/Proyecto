@@ -11,6 +11,10 @@
 
 #define puerto 9010
 
+#define numPalos 4
+#define numValores 13
+#define fichas0 10000
+
 pthread_mutex_t mutex= PTHREAD_MUTEX_INITIALIZER;
 typedef struct{
 	char nombre[100];
@@ -21,6 +25,13 @@ typedef struct{
 	Conectado conectados[100];
 	int num;
 }ListaConectados;
+
+const char *palos[] = { "Corazones", "Diamantes", "Treboles", "Picas" };
+const char *valores[] = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
+typedef struct{
+	const char *valor;
+	const char *palo;
+}Carta;
 
 typedef struct {
 	int estado;
@@ -34,6 +45,7 @@ typedef struct {
 	char j4[100];
 	int fichasJ4;
 	char fechaInicio[10];
+	Carta baraja[52];
 }Partida;
 
 char conectados[100];
@@ -42,6 +54,17 @@ ListaConectados listaCon;
 Partida listaPartidas[100];
 int maxPartidas = 100;
 
+
+void crearBaraja(Carta baraja[52]) {
+	int i = 0;
+	for (int p = 0; p < numPalos; p++) {
+		for (int v = 0; v < numValores; v++) {
+			baraja[i].palo = palos[p];
+			baraja[i].valor = valores[v];
+			i++;
+		}
+	}
+}
 int crearPartida(char nombreHost[100]) {
 	//Si se ha creado partida, retorna su posición en la listaPartidas
 	//Retorna -1 si la listaPartidas está llena
@@ -66,6 +89,7 @@ int crearPartida(char nombreHost[100]) {
 			listaPartidas[i].fichasJ4 = 0;
 
 			strcpy(listaPartidas[i].fechaInicio,"\0");
+						
 			encontrado = 1;
 		}
 		else
@@ -111,14 +135,14 @@ void iniciarPartida(int partida, char jugadoresPartida[500]) {
 	int socket1 = dameSocket(listaPartidas[partida].host);
 	if (socket1 != -1) {
 		char respuesta2[100];
-		sprintf(respuesta2, "%s*%s\0", respuesta, "host");
+		sprintf(respuesta2, "%s;%s/%d\0", respuesta, "host",fichas0);
 		printf("%s\n", respuesta2);
 		write(listaCon.conectados[socket1].socket, respuesta2, strlen(respuesta2));
 	}
 	int socket2 = dameSocket(listaPartidas[partida].j2);
 	if (socket2 != -1) {
 		char respuesta2[100];
-		sprintf(respuesta2, "%s*%s\0", respuesta, "j2");
+		sprintf(respuesta2, "%s;%s/%d\0", respuesta, "j2",fichas0);
 		printf("%s\n", respuesta2);
 		write(listaCon.conectados[socket2].socket, respuesta2, strlen(respuesta2));
 	}
@@ -127,7 +151,7 @@ void iniciarPartida(int partida, char jugadoresPartida[500]) {
 		int socket3 = dameSocket(listaPartidas[partida].j3);
 		if (socket3 != -1) {
 			char respuesta2[100];
-			sprintf(respuesta2, "%s*%s\0", respuesta, "j3");
+			sprintf(respuesta2, "%s;%s/%d\0", respuesta, "j3",fichas0);
 			printf("%s\n", respuesta2);
 			write(listaCon.conectados[socket3].socket, respuesta2, strlen(respuesta2));
 		}
@@ -136,7 +160,7 @@ void iniciarPartida(int partida, char jugadoresPartida[500]) {
 		int socket4 = dameSocket(listaPartidas[partida].j4);
 		if (socket4 != -1) {
 			char respuesta2[100];
-			sprintf(respuesta2, "%s*%s\0", respuesta, "j4");
+			sprintf(respuesta2, "%s;%s/%d\0", respuesta, "j4",fichas0);
 			printf("%s\n", respuesta2);
 			write(listaCon.conectados[socket4].socket, respuesta2, strlen(respuesta2));
 		}
@@ -621,6 +645,7 @@ void *AtenderCliente (void *socket){
 				write(sock_conn,respuesta, strlen(respuesta));
 			}
 			else {
+				crearBaraja(listaPartidas[partida].baraja);
 				printf("Numero de socket : %d\n", sock_conn);
 				int res = invitarJugador(invitados, IdUsuario, noDisponibles, partida);
 			}
