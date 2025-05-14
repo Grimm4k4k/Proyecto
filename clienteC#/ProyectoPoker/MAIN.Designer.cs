@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MAIN));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.mENUDECONSULTASToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,9 +52,7 @@
             this.enviarBox = new System.Windows.Forms.TextBox();
             this.chatLabel = new System.Windows.Forms.Label();
             this.fichasLabel = new System.Windows.Forms.Label();
-            this.tableroPictureBox = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tableroPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -67,7 +64,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1904, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1370, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -291,25 +288,13 @@
             this.fichasLabel.Text = "Fichas:";
             this.fichasLabel.Visible = false;
             // 
-            // tableroPictureBox
-            // 
-            this.tableroPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("tableroPictureBox.Image")));
-            this.tableroPictureBox.Location = new System.Drawing.Point(630, 241);
-            this.tableroPictureBox.Name = "tableroPictureBox";
-            this.tableroPictureBox.Size = new System.Drawing.Size(600, 359);
-            this.tableroPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.tableroPictureBox.TabIndex = 20;
-            this.tableroPictureBox.TabStop = false;
-            this.tableroPictureBox.Visible = false;
-            // 
             // MAIN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(1904, 961);
-            this.Controls.Add(this.tableroPictureBox);
+            this.ClientSize = new System.Drawing.Size(1370, 749);
             this.Controls.Add(this.fichasLabel);
             this.Controls.Add(this.enviarBtn);
             this.Controls.Add(this.chatBox);
@@ -337,7 +322,6 @@
             this.Load += new System.EventHandler(this.Consulta_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tableroPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -369,6 +353,5 @@
         private System.Windows.Forms.TextBox enviarBox;
         private System.Windows.Forms.Label chatLabel;
         private System.Windows.Forms.Label fichasLabel;
-        private System.Windows.Forms.PictureBox tableroPictureBox;
     }
 }

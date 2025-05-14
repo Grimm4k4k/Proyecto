@@ -36,7 +36,7 @@ namespace version1
         int fichas;
         Queue<string> chat;
         ListaJugadores listaJugadores = new ListaJugadores();
-
+        FormPartidas formPartidas = new FormPartidas();
 
 
         public void setServer(Socket server)
@@ -66,6 +66,7 @@ namespace version1
                 string op;
                 string[] trozos;
                 string mensaje;
+                int numForm;
                 // recibo mensaje del servidor
                 try
                 {
@@ -75,6 +76,7 @@ namespace version1
                     // lo divido en trozos
                     trozos = mensaje.Split('/');
                     op = trozos[0];
+                    numForm = Convert.ToInt32(trozos[1]);
                 }
                 catch
                 {
@@ -97,7 +99,7 @@ namespace version1
                         {
                             string[] nombres = new string[100];
                             int n = 0;
-                            for (int i = 2; i < trozos.Length; i++)
+                            for (int i = 3; i < trozos.Length; i++)
                             {
                                 nombres[n] = trozos[i];//Guardamos solo los nombres llegados del servidor
                                 n++;
@@ -115,7 +117,7 @@ namespace version1
                             string[] partes = mensaje.Split('/');
                             string[] resp = new string[partes.Length -1];
                             int n = 0;
-                            for (int i = 1; i < partes.Length; i++)
+                            for (int i = 2; i < partes.Length; i++)
                             {
                                 resp[n] = partes[i];
                                 n++;
@@ -136,7 +138,7 @@ namespace version1
                             string[] partes = mensaje.Split('/');
                             string[] resp = new string[partes.Length - 1];
                             int n = 0;
-                            for(int i = 1; i < partes.Length; i++)
+                            for(int i = 2; i < partes.Length; i++)
                             {
                                 resp[n] = partes[i];
                                 n++;
@@ -148,9 +150,9 @@ namespace version1
                     case "consulta5":
                         {
                             string[] partes = mensaje.Split('/');
-                            if (partes[1] != null)
+                            if (partes[2] != null)
                             {
-                                MessageBox.Show("Has jugado " + partes[1] + " partidas en ese tiempo");
+                                MessageBox.Show("Has jugado " + partes[2] + " partidas en ese tiempo");
                             }
                             this.Invoke((MethodInvoker)delegate
                             {
@@ -161,54 +163,46 @@ namespace version1
                         }
                     break;
 
-                    case "recibirInvitacion"://trozos[1]: nombreHost*partida
+                    case "recibirInvitacion"://trozos[2]: nombreHost*partida
                         {
-                            string[] trozos2 = trozos[1].Split('*'); //trozos2=[nombrehost][partida]
+                            string[] trozos2 = trozos[2].Split('*'); //trozos2=[nombrehost][partida]
                            
                             formInvi.setHost(trozos2[0]);
                             formInvi.ShowDialog();
                             string respuesta = "7/" + id + "/" + contra + "/" + formInvi.getRespuesta() + "/" + trozos2[1] + "\0";
                             msg = System.Text.Encoding.ASCII.GetBytes(respuesta);
                             server.Send(msg);
-                            
-                            
                         }
                     break;
 
                     case "partidaIniciada":
                         {
-                            idP = trozos[1].ToString();
-                            jdp = trozos[2].Split(';')[0];
+                            idP = trozos[2].ToString();
+                            jdp = trozos[3].Split(';')[0];
                             string[] jdp2 = jdp.Split('*');
                             int i = 0;
                             foreach (string jugador in jdp2)
                             {
                                 listaJugadores.idJugador[i]= jugador;
                             }
-                            fichas = Convert.ToInt32(trozos[3]);
-                            this.Invoke((MethodInvoker)delegate
-                            {
-                                enviarBox.Visible = true;
-                                enviarBtn.Visible = true;
-                                chatBox.Visible = true;
-                                chatLabel.Visible = true;
-                                tableroPictureBox.Visible = true;
-                                fichasLabel.Visible = true;
-                                fichasLabel.Text= fichasLabel.Text+ " "+fichas.ToString();
-                                this.BackColor = Color.Green;
-                            });
+                            fichas = Convert.ToInt32(trozos[4]);
+                            formPartidas.setIdP(Convert.ToInt32(idP));
+                            formPartidas.setlistaJugadores(listaJugadores);
+                            formPartidas.setFichas(fichas);
+                            formPartidas.ShowDialog();
+                            
                         }
                     break;
 
-                    case "partidaRechazada": //	trozos[1]= id de la partida * rechazador
+                    case "partidaRechazada": //	trozos[2]= id de la partida * rechazador
                         {
-                            idP = trozos[1].Split('*')[0];
-                            MessageBox.Show(trozos[1].Split('*')[1] + " ha rechazado la partida. Por ende, la partida no se iniciará");
+                            idP = trozos[2].Split('*')[0];
+                            MessageBox.Show(trozos[2].Split('*')[1] + " ha rechazado la partida. Por ende, la partida no se iniciará");
                         }
                     break;
-                    case "nuevoChat": //trozos[1]= id remitente * mensaje
+                    case "nuevoChat": //trozos[2]= id remitente * mensaje
                         {
-                            NuevoChat(trozos[1]);
+                            NuevoChat(trozos[2]);
                         }
                     break;
 
@@ -371,6 +365,10 @@ namespace version1
                     chatBox.Text = chatBox.Text + mensaje + Environment.NewLine;
                 });
             }
+        }
+        private void abrirFormulario()
+        {
+            FormPartidas f = new FormPartidas();
         }
 
 
