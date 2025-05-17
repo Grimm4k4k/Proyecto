@@ -20,7 +20,7 @@ namespace version1
             CheckForIllegalCrossThreadCalls = false;
         }
 
-        int puerto = 9003;
+        int puerto = 9010;
 
 
         Socket server;
