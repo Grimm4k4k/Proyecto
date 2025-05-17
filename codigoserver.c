@@ -350,6 +350,7 @@ void *AtenderCliente (void *socket){
 	char IdUsuario[20];
 	char Contra[20];
 	
+	int numForm;
 	int err,num; 
 	MYSQL_RES *resultado; 
 	MYSQL_ROW row;
@@ -382,6 +383,8 @@ void *AtenderCliente (void *socket){
 		strcpy(copiaPeticion,peticion);
 		char *p = strtok(peticion, "/");
 		int NumPeticion = atoi(p);
+		p = strtok(NULL,"/");
+		numForm = atoi(p);
 		printf ("Peticion: %s\n",peticion);
 		
 		// Ya tenemos el numero de la peticion
@@ -642,7 +645,7 @@ void *AtenderCliente (void *socket){
 			printf("Numero de socket: %d\n", sock_conn);
 			int partida = crearPartida(IdUsuario);
 			if (partida == -1){
-				sprintf(respuesta, "recibirInvitacion/-1");
+				sprintf(respuesta, "recibirInvitacion/%d/-1",numForm);
 				write(sock_conn,respuesta, strlen(respuesta));
 			}
 			else {
@@ -666,7 +669,7 @@ void *AtenderCliente (void *socket){
 				printf("Numero de socket: %d\n", sock_conn);
 				rechazarPartida(idPartida, IdUsuario, sock_conn);
 				strcpy(respuesta,"partidaRechazada/");
-				sprintf(respuesta,"%s%d*%s",respuesta,idPartida,IdUsuario);
+				sprintf(respuesta,"%s%d/%d*%s",numForm,respuesta,idPartida,IdUsuario);
 				write(sock_conn,respuesta,strlen(respuesta));
 			}
 			else
@@ -703,7 +706,7 @@ void *AtenderCliente (void *socket){
 			
 			//Notificamos a todos menos a uno mismo (envia el cliente de este thread -> nombre)
 			char notificacion[500];
-			sprintf(notificacion,"nuevoChat/%s*%s",IdUsuario,mensaje);
+			sprintf(notificacion,"nuevoChat/%d/%s*%s",numForm,IdUsuario,mensaje);
 			enviarNotificacion(notificacion,idP,sock_conn);
 		}
 		break;

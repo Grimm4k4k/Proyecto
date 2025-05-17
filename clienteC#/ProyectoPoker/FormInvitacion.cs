@@ -32,7 +32,7 @@ namespace version1
 
         private void FormInvitacion_Load(object sender, EventArgs e)
         {
-            label1.Text = " Te quieres unir a la partida de" + host + "?";
+            label1.Text = " Te quieres unir a la partida de " + host + "?";
         }
 
         private void siButton_Click(object sender, EventArgs e)
