@@ -9,13 +9,15 @@
 #include <pthread.h>
 #include <time.h>
 
-#define puerto 9010
+#define puerto 9003
 
 #define numPalos 4
 #define numValores 13
 #define fichas0 10000
 
+int numInvitados;
 pthread_mutex_t mutex= PTHREAD_MUTEX_INITIALIZER;
+
 typedef struct{
 	char nombre[100];
 	int socket;
@@ -240,9 +242,8 @@ int invitarJugador(char invitados[500], char nombreHost[25], char noDisponibles[
 	return res;
 }
 
-int addJugador(char nombre[25], int partida) {
+int addJugador(char nombre[25], int partida,int numInvitados) {
 	//Devuelve 1 si se han añadido todos los jugadores correctamente
-	int numInvitados = listaPartidas[partida].numJugadores-1;
 	pthread_mutex_lock(&mutex);
 	if (strcmp(listaPartidas[partida].j2, "\0") == 0) {
 		strcpy(listaPartidas[partida].j2, nombre);
@@ -647,9 +648,8 @@ void *AtenderCliente (void *socket){
 			else {
 				crearBaraja(listaPartidas[partida].baraja);
 				printf("Numero de socket : %d\n", sock_conn);
-				int res = invitarJugador(invitados, IdUsuario, noDisponibles, partida);
+				numInvitados = invitarJugador(invitados, IdUsuario, noDisponibles, partida);
 			}
-				
 		}
 		break;
 
@@ -661,25 +661,34 @@ void *AtenderCliente (void *socket){
 			p = strtok(NULL, "/");
 			int idPartida;
 			idPartida = atoi(p);
-			if (strcmp(respuesta2, "no") == 0) {
+			if (strcmp(respuesta2, "no") == 0) 
+			{
 				printf("Numero de socket: %d\n", sock_conn);
 				rechazarPartida(idPartida, IdUsuario, sock_conn);
-				pthread_mutex_lock(&mutex);
-				eliminarPartida(idPartida);
-				pthread_mutex_unlock(&mutex);
 				strcpy(respuesta,"partidaRechazada/");
 				sprintf(respuesta,"%s%d*%s",respuesta,idPartida,IdUsuario);
 				write(sock_conn,respuesta,strlen(respuesta));
 			}
-			else {
-				int res = addJugador(IdUsuario, idPartida);
-				if (res == 0) {
+			else
+			{
+				int res = addJugador(IdUsuario, idPartida, numInvitados);
+				numInvitados=res;
+				if (res == 0) 
+				{
+					if(listaPartidas[idPartida].numJugadores==1)
+					{
+						pthread_mutex_lock(&mutex);
+						eliminarPartida(idPartida);
+						pthread_mutex_unlock(&mutex);
+					}
+					else
+					{
 					printf("Numero de socket: %d; Añadido a la partida %s\n", sock_conn, IdUsuario);
 					char jugadoresPartida[500];
 					dameJugadoresPartida(idPartida, jugadoresPartida);
 					printf("Numero de socket: %d\n", sock_conn);
-					iniciarPartida(idPartida, jugadoresPartida);
-					
+					iniciarPartida(idPartida, jugadoresPartida);	
+					}
 				}
 			}
 		}

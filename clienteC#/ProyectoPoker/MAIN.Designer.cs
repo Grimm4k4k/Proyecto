@@ -228,9 +228,9 @@
             this.label4.ForeColor = System.Drawing.Color.Red;
             this.label4.Location = new System.Drawing.Point(89, 110);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(274, 13);
+            this.label4.Size = new System.Drawing.Size(319, 13);
             this.label4.TabIndex = 13;
-            this.label4.Text = "IMPORTANTE: Seguir el formato: invitado1/invitado2/...";
+            this.label4.Text = "IMPORTANTE: Seguir el formato: invitado1*invitado2*invitado3*...";
             this.label4.Visible = false;
             // 
             // enviarBtn
