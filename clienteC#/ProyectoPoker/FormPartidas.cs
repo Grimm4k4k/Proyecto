@@ -10,32 +10,11 @@ using System.Windows.Forms;
 
 namespace version1
 {
-    public partial class FormPartidas: Form
+    public partial class formPartidas : Form
     {
-        ListaJugadores listaJugadores = new ListaJugadores();
-        int fichas;
-        int IdP;
-        Queue<string> chat;
-        public FormPartidas()
+        public formPartidas()
         {
             InitializeComponent();
-            chat = new Queue<string>();
-        }
-
-
-        public void setlistaJugadores(ListaJugadores listaJugadores)
-        {
-            this.listaJugadores = listaJugadores;
-        }
-        
-        public void setFichas(int fichas)
-        {
-            this.fichas = fichas;
-        }
-
-        public void setIdP(int IdP)
-        {
-            this.IdP = IdP;
         }
     }
 }

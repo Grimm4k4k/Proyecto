@@ -1,10 +1,30 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\UPC\\SO\\Proyecto\\clienteC#\\ProyectoPoker\\",
+  "WorkspaceRootPath": "C:\\Users\\gerar\\OneDrive\\Escriptori\\UPC\\Q4\\SO\\Projecte\\clienteC#\\ProyectoPoker\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{13DDB411-D814-4DF2-B139-17C5AD8E64C1}|ProyectoPoker.csproj|d:\\upc\\so\\proyecto\\clientec#\\proyectopoker\\cliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{13DDB411-D814-4DF2-B139-17C5AD8E64C1}|ProyectoPoker.csproj|c:\\users\\gerar\\onedrive\\escriptori\\upc\\q4\\so\\projecte\\clientec#\\proyectopoker\\formpartidas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{13DDB411-D814-4DF2-B139-17C5AD8E64C1}|ProyectoPoker.csproj|solutionrelative:formpartidas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13DDB411-D814-4DF2-B139-17C5AD8E64C1}|ProyectoPoker.csproj|c:\\users\\gerar\\onedrive\\escriptori\\upc\\q4\\so\\projecte\\clientec#\\proyectopoker\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{13DDB411-D814-4DF2-B139-17C5AD8E64C1}|ProyectoPoker.csproj|solutionrelative:main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13DDB411-D814-4DF2-B139-17C5AD8E64C1}|ProyectoPoker.csproj|C:\\Users\\gerar\\OneDrive\\Escriptori\\UPC\\Q4\\SO\\Projecte\\clienteC#\\ProyectoPoker\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13DDB411-D814-4DF2-B139-17C5AD8E64C1}|ProyectoPoker.csproj|solutionrelative:main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13DDB411-D814-4DF2-B139-17C5AD8E64C1}|ProyectoPoker.csproj|C:\\Users\\gerar\\OneDrive\\Escriptori\\UPC\\Q4\\SO\\Projecte\\clienteC#\\ProyectoPoker\\cliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{13DDB411-D814-4DF2-B139-17C5AD8E64C1}|ProyectoPoker.csproj|solutionrelative:cliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13DDB411-D814-4DF2-B139-17C5AD8E64C1}|ProyectoPoker.csproj|C:\\Users\\gerar\\OneDrive\\Escriptori\\UPC\\Q4\\SO\\Projecte\\clienteC#\\ProyectoPoker\\listajugadores.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13DDB411-D814-4DF2-B139-17C5AD8E64C1}|ProyectoPoker.csproj|solutionrelative:listajugadores.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13DDB411-D814-4DF2-B139-17C5AD8E64C1}|ProyectoPoker.csproj|C:\\Users\\gerar\\OneDrive\\Escriptori\\UPC\\Q4\\SO\\Projecte\\clienteC#\\ProyectoPoker\\cliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13DDB411-D814-4DF2-B139-17C5AD8E64C1}|ProyectoPoker.csproj|solutionrelative:cliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,23 +34,109 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 4,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Cliente.cs [Dise\u00F1o]",
-              "DocumentMoniker": "D:\\UPC\\SO\\Proyecto\\clienteC#\\ProyectoPoker\\Cliente.cs",
-              "RelativeDocumentMoniker": "Cliente.cs",
-              "ToolTip": "D:\\UPC\\SO\\Proyecto\\clienteC#\\ProyectoPoker\\Cliente.cs [Dise\u00F1o]",
-              "RelativeToolTip": "Cliente.cs [Dise\u00F1o]",
+              "Title": "formPartidas.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\gerar\\OneDrive\\Escriptori\\UPC\\Q4\\SO\\Projecte\\clienteC#\\ProyectoPoker\\formPartidas.cs",
+              "RelativeDocumentMoniker": "formPartidas.cs",
+              "ToolTip": "C:\\Users\\gerar\\OneDrive\\Escriptori\\UPC\\Q4\\SO\\Projecte\\clienteC#\\ProyectoPoker\\formPartidas.cs [Design]",
+              "RelativeToolTip": "formPartidas.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-01T19:25:00.009Z",
-              "EditorCaption": " [Dise\u00F1o]"
+              "WhenOpened": "2025-05-17T18:09:49.233Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ListaJugadores.cs",
+              "DocumentMoniker": "C:\\Users\\gerar\\OneDrive\\Escriptori\\UPC\\Q4\\SO\\Projecte\\clienteC#\\ProyectoPoker\\ListaJugadores.cs",
+              "RelativeDocumentMoniker": "ListaJugadores.cs",
+              "ToolTip": "C:\\Users\\gerar\\OneDrive\\Escriptori\\UPC\\Q4\\SO\\Projecte\\clienteC#\\ProyectoPoker\\ListaJugadores.cs",
+              "RelativeToolTip": "ListaJugadores.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T10:52:07.061Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Cliente.cs",
+              "DocumentMoniker": "C:\\Users\\gerar\\OneDrive\\Escriptori\\UPC\\Q4\\SO\\Projecte\\clienteC#\\ProyectoPoker\\Cliente.cs",
+              "RelativeDocumentMoniker": "Cliente.cs",
+              "ToolTip": "C:\\Users\\gerar\\OneDrive\\Escriptori\\UPC\\Q4\\SO\\Projecte\\clienteC#\\ProyectoPoker\\Cliente.cs",
+              "RelativeToolTip": "Cliente.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAAZAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-11T15:24:49.348Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Cliente.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\gerar\\OneDrive\\Escriptori\\UPC\\Q4\\SO\\Projecte\\clienteC#\\ProyectoPoker\\Cliente.cs",
+              "RelativeDocumentMoniker": "Cliente.cs",
+              "ToolTip": "C:\\Users\\gerar\\OneDrive\\Escriptori\\UPC\\Q4\\SO\\Projecte\\clienteC#\\ProyectoPoker\\Cliente.cs [Design]",
+              "RelativeToolTip": "Cliente.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-11T15:24:43.532Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MAIN.cs",
+              "DocumentMoniker": "C:\\Users\\gerar\\OneDrive\\Escriptori\\UPC\\Q4\\SO\\Projecte\\clienteC#\\ProyectoPoker\\MAIN.cs",
+              "RelativeDocumentMoniker": "MAIN.cs",
+              "ToolTip": "C:\\Users\\gerar\\OneDrive\\Escriptori\\UPC\\Q4\\SO\\Projecte\\clienteC#\\ProyectoPoker\\MAIN.cs",
+              "RelativeToolTip": "MAIN.cs",
+              "ViewState": "AQIAALEAAAAAAAAAAAAWwLkAAABFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-11T14:21:44.851Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MAIN.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\gerar\\OneDrive\\Escriptori\\UPC\\Q4\\SO\\Projecte\\clienteC#\\ProyectoPoker\\MAIN.cs",
+              "RelativeDocumentMoniker": "MAIN.cs",
+              "ToolTip": "C:\\Users\\gerar\\OneDrive\\Escriptori\\UPC\\Q4\\SO\\Projecte\\clienteC#\\ProyectoPoker\\MAIN.cs [Design]",
+              "RelativeToolTip": "MAIN.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-11T14:20:23.181Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             }
           ]
         }
